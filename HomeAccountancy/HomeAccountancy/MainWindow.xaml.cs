@@ -14,9 +14,9 @@ namespace HomeAccountancy
             InitializeComponent();
         }
 
-        private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private /*async*/ void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (e.Cancel)
+            /*if (e.Cancel)
                 return;
 
             e.Cancel = true;
@@ -34,17 +34,19 @@ namespace HomeAccountancy
                 MessageDialogStyle.AffirmativeAndNegative, exitDialog);
 
             if (result == MessageDialogResult.Affirmative)
-                Application.Current.Shutdown();
+                Application.Current.Shutdown();*/
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ShowSurveyView_click(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedIndex = 0;
+            ShowReportView.IsChecked = false;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ShowReportView_Click(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedIndex = 1;
+            ShowSurveyView.IsChecked = false;
         }
     }
 }

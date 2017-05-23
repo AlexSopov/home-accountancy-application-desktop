@@ -4,5 +4,6 @@
     
     <SolidColorBrush x:Key="LightGray1" Color="#FAFAFA" />
     <SolidColorBrush x:Key="LightGray2" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="MainBackgroudColor" Color="#F8F8F8" />
 
 </ResourceDictionary>

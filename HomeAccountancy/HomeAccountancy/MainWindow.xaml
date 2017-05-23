@@ -3,45 +3,48 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:local="clr-namespace:HomeAccountancy"
-                      Title="Main window"
+                      Title="Домашня бухгатлтерія"
                       WindowStartupLocation="CenterScreen"
                       Closing="MainWindow_Closing"
                       BorderThickness="1"
                       GlowBrush="LightGray"
-                      Height="600" Width="800">
+                      TitleCaps="False"
+                      Height="700" Width="1150"  Background="{StaticResource MainBackgroudColor}">
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" HorizontalAlignment="Stretch" Padding="5 0">
+        <Menu Grid.Row="0" HorizontalAlignment="Stretch" Padding="5 0" FontSize="12">
             <MenuItem Header="Файл"></MenuItem>
             <MenuItem Header="Про програму"/>
         </Menu>
 
-        <ToolBarTray Grid.Row="1" IsLocked="True" Orientation="Horizontal" Background="{StaticResource ResourceKey=LightGray1}">
-            <ToolBar Height="50" VerticalAlignment="Top" Grid.Row="1">
-                <ToggleButton>gdsafsdafasdfa</ToggleButton>
-                <Separator />
-                <Button Click="Button_Click">gfdsgfdsgdfsgsdg</Button>
-                <Separator />
-                <Button Click="Button_Click_1">gfdggdsfgfdsg</Button>
-                <Separator />
-                <Button>fdsafdsafdsafadsf</Button>
-            </ToolBar>
-        </ToolBarTray>
+        <Border Grid.Row="1" BorderThickness="0 0.5" BorderBrush="Gray">
+            <ToolBarTray IsLocked="True" Orientation="Horizontal" Background="{StaticResource ResourceKey=LightGray1}">
+                <ToolBar Height="50" VerticalAlignment="Top" Grid.Row="1" FontSize="14" >
+                    <RadioButton Click="ShowSurveyView_click" Name="ShowSurveyView">Огляд</RadioButton>
+                    <Separator />
+                    <ToggleButton Click="ShowReportView_Click" Name="ShowReportView">Календар</ToggleButton>
+                    <Separator />
+                    <Button>Звіти</Button>
+                </ToolBar>
+            </ToolBarTray>
+        </Border>
 
-        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="2" x:Name="MainTabControl" FontSize="15">
-            <TabItem>
-                <local:UC1 DataContext="{Binding}" />
-            </TabItem>
-            <TabItem>
-                <local:UC2 DataContext="{Binding}" />
-            </TabItem>
-        </Controls:MetroAnimatedSingleRowTabControl>
+        <Border Grid.Row="2" Padding="10">
+            <Controls:MetroAnimatedSingleRowTabControl  x:Name="MainTabControl" FontSize="15" TabStripPlacement="Bottom">
+                <TabItem Visibility="Collapsed">
+                    <local:SurveyView DataContext="{Binding}" />
+                </TabItem>
+                <TabItem Visibility="Collapsed">
+                    <local:ReportView DataContext="{Binding}" />
+                </TabItem>
+            </Controls:MetroAnimatedSingleRowTabControl>
+        </Border>
 
     </Grid>
     
