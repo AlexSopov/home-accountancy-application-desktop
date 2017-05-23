@@ -1,0 +1,50 @@
+﻿<Controls:MetroWindow x:Class="HomeAccountancy.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:HomeAccountancy"
+                      Title="Main window"
+                      WindowStartupLocation="CenterScreen"
+                      Closing="MainWindow_Closing"
+                      BorderThickness="1"
+                      GlowBrush="LightGray"
+                      Height="600" Width="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" HorizontalAlignment="Stretch" Padding="5 0">
+            <MenuItem Header="Файл"></MenuItem>
+            <MenuItem Header="Про програму"/>
+        </Menu>
+
+        <ToolBarTray Grid.Row="1" IsLocked="True" Orientation="Horizontal" Background="{StaticResource ResourceKey=LightGray1}">
+            <ToolBar Height="50" VerticalAlignment="Top" Grid.Row="1">
+                <ToggleButton>gdsafsdafasdfa</ToggleButton>
+                <Separator />
+                <Button Click="Button_Click">gfdsgfdsgdfsgsdg</Button>
+                <Separator />
+                <Button Click="Button_Click_1">gfdggdsfgfdsg</Button>
+                <Separator />
+                <Button>fdsafdsafdsafadsf</Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="2" x:Name="MainTabControl" FontSize="15">
+            <TabItem>
+                <local:UC1 DataContext="{Binding}" />
+            </TabItem>
+            <TabItem>
+                <local:UC2 DataContext="{Binding}" />
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+    </Grid>
+    
+</Controls:MetroWindow>
+    
+    
