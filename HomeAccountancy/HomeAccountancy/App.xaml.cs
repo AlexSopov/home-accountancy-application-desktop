@@ -38,7 +38,8 @@ namespace HomeAccountancy
             adapter.Fill(dataSet);
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
-                Account.Entities.Add(new Account(Convert.ToInt64(row["Id"]), Convert.ToString(row["Name"]), Convert.ToInt32(row["CurrencyId"])));
+                Account.Entities.Add(new Account(Convert.ToInt64(row["Id"]), Convert.ToString(row["Name"]), Convert.ToInt32(row["CurrencyId"]),
+                    Convert.ToDouble(row["StartBalance"])));
 
             Account.PreloadData(adapter, dataSet);
         }

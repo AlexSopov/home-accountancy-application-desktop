@@ -25,3 +25,5 @@ D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccounta
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.csprojResolveAssemblyReference.cache
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\System.Data.SQLite.dll
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\System.Data.SQLite.xml
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\SingleTransactionWindow.g.cs
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\SingleTransactionWindow.baml

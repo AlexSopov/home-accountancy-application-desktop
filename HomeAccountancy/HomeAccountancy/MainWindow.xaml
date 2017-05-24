@@ -26,11 +26,13 @@
         <Border Grid.Row="1" BorderThickness="0 0.5" BorderBrush="Gray">
             <ToolBarTray IsLocked="True" Orientation="Horizontal" Background="{StaticResource ResourceKey=LightGray1}">
                 <ToolBar Height="50" VerticalAlignment="Top" Grid.Row="1" FontSize="14" >
-                    <RadioButton Click="ShowSurveyView_click" Name="ShowSurveyView">Огляд</RadioButton>
-                    <Separator />
+                    <ToggleButton Click="ShowSurveyView_click" Name="ShowSurveyView">Головна</ToggleButton>
                     <ToggleButton Click="ShowReportView_Click" Name="ShowReportView">Календар</ToggleButton>
+                    <ToggleButton>Графік</ToggleButton>
                     <Separator />
-                    <Button>Звіти</Button>
+                    <Button>Рахунки</Button>
+                    <Button>Категорії</Button>
+                    <Button>Валюти</Button>
                 </ToolBar>
             </ToolBarTray>
         </Border>

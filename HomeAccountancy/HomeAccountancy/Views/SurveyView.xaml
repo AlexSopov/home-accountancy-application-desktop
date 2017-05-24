@@ -113,7 +113,7 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" Click="Delete_Click">Видалити</Button>
             <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" >Змінити</Button>
-            <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Padding="20 8">Додати</Button>
+            <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Click="Add_Click" Padding="20 8">Додати</Button>
         </Grid>
         
     </Grid>

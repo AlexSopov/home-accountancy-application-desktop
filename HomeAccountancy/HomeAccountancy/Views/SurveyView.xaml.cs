@@ -23,8 +23,13 @@ namespace HomeAccountancy
 
         }
 
-        private async void Delete_Click(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            new SingleTransactionWindow().ShowDialog();
         }
     }
 }

@@ -1,0 +1,63 @@
+﻿<Controls:MetroWindow x:Class="HomeAccountancy.SingleTransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:HomeAccountancy" 
+        mc:Ignorable="d"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="LightGray"
+        TitleCaps="False"
+        Width="300" Margin="0" Padding="0"
+        ResizeMode="NoResize"
+        SizeToContent="Height"
+        Title="Створення запису"
+        Background="#FAFAFA">
+
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="18" TextAlignment="Center" Margin="0 0 0 5">Запис доходу/витрати</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Дата:</TextBlock>
+            <DatePicker Grid.Row="1" Grid.Column="1" DockPanel.Dock="Left" 
+                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
+                        Controls:TextBoxHelper.Watermark="Дата" Name="DateFrom"
+                        HorizontalAlignment="Stretch" Margin="0 0 0 8"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Категорія:</TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="1"  Margin="0 0 0 8"></ComboBox>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Сума:</TextBlock>
+            <Controls:NumericUpDown Grid.Row="3" Grid.Column="1"  Margin="0 0 0 8" HasDecimals="True" Speedup="True"
+                                    Minimum="0" Maximum = "1000000" Interval="10" StringFormat="N2"></Controls:NumericUpDown>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Коментар:</TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="1"  Margin="0 0 0 8"></TextBox>
+
+            <Button Grid.Column="0" Grid.Row="5" Style="{DynamicResource SquareButtonStyle}" Padding="20 8">Відмінити</Button>
+
+            <Grid Grid.Column="1" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Padding="10 5" >Зберегти</Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Controls:MetroWindow>

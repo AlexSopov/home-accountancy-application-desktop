@@ -16,6 +16,7 @@ namespace HomeAccountancy
 
         private /*async*/ void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            
             /*if (e.Cancel)
                 return;
 

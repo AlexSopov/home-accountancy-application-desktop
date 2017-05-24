@@ -7,11 +7,13 @@ namespace HomeAccountancy.Model
     {
         public string Name { get; private set; }
         public long CurrencyId { get; private set; }
+        public double StartBalance { get; private set; }
 
-        public Account(long id, string name, long currencyId) : base(id)
+        public Account(long id, string name, long currencyId, double startBalance) : base(id)
         {
             Name = name;
             CurrencyId = currencyId;
+            StartBalance = startBalance;
         }
 
         public List<Transaction> Transactions
