@@ -9,7 +9,7 @@
                       BorderThickness="1"
                       GlowBrush="LightGray"
                       TitleCaps="False"
-                      Height="700" Width="1150"  Background="{StaticResource MainBackgroudColor}">
+                      Height="700" Width="1200"  Background="{StaticResource MainBackgroudColor}">
     
     <Grid>
         <Grid.RowDefinitions>

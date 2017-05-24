@@ -23,3 +23,5 @@ D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccounta
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Views\SurveyView.baml
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Views\ReportView.baml
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.csprojResolveAssemblyReference.cache
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\System.Data.SQLite.dll
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\System.Data.SQLite.xml

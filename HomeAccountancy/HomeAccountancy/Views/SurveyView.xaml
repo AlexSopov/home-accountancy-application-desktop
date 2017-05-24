@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:converter="clr-namespace:HomeAccountancy.Converters"
              xmlns:local="clr-namespace:HomeAccountancy"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converter:DateTimeToStringConverter x:Key="DateToStrongConverter" />
+    </UserControl.Resources>
+    
     <Grid Background="{StaticResource MainBackgroudColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,26 +32,32 @@
                      DockPanel.Dock="Right" HorizontalAlignment="Right" Width="175"/>
             <DatePicker DockPanel.Dock="Left" HorizontalAlignment="Left" Width="150"
                         DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
-                        Controls:TextBoxHelper.Watermark="Дата від"/>
+                        Controls:TextBoxHelper.Watermark="Дата від" Name="DateFrom"/>
             <TextBlock Text="-" Margin="10 0" DockPanel.Dock="Left" VerticalAlignment="Center"/>
             <DatePicker DockPanel.Dock="Left" HorizontalAlignment="Left" Width="150"
                         DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
-                        Controls:TextBoxHelper.Watermark="Дата до"/>
+                        Controls:TextBoxHelper.Watermark="Дата до" Name="DateTo"/>
 
         </DockPanel>
 
         <!--Grid-->
         <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
-            <DataGrid IsReadOnly="True" FontSize="12">
-                <DataGrid.Items>
-                    <local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
-                    <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
-                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
-                </DataGrid.Items>
+            <DataGrid Name="DataContainer" FontSize="12" AutoGenerateColumns="False" 
+                      ItemsSource="{Binding Path=Transactions}" SelectedItem="{Binding SelectedTransaction}" GridLinesVisibility="Horizontal"
+                      IsReadOnly="True" SelectionChanged="DataContainer_SelectionChanged">
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+                        <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
+                    </Style>
+                </DataGrid.Style>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Модель" Binding="{Binding Path=Title}" />
-                    <DataGridTextColumn Header="Компания" Binding="{Binding Path=Company}"/>
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"/>
+                    <DataGridTextColumn Binding="{Binding Path=Date, Converter={StaticResource DateToStrongConverter}}" Header="Дата" Width="100" />
+                    <DataGridTextColumn Binding="{Binding Path=TransactionAccount}" Header="Рахунок" Width="100" />
+                    <DataGridTextColumn Binding="{Binding Path=TransactionCategory}" Header="Категорія" Width="100" />
+                    <DataGridTextColumn Binding="{Binding Path=Sum}" Header="Сума" Width="auto" />
+                    <DataGridTextColumn Binding="{Binding Path=Rest}" Header="Залишок" Width="auto" />
+                    <DataGridTextColumn Binding="{Binding Path=TransactionCurrency}" Header="Валюта" Width="100" />
+                    <DataGridTextColumn Binding="{Binding Path=Description}" Header="Опис"  Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
@@ -56,16 +67,16 @@
             <Border Margin="5 0 0 20" Background="SkyBlue" Padding="5 10 5 10" BorderThickness="1" BorderBrush="LightGray">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Foreground="White" FontSize="18">Поточний залишок</TextBlock>
-                    <TextBlock Name="CurrentRest"  Foreground="White" FontSize="20" FontWeight="Bold">1 000 грн.</TextBlock>
+                    <TextBlock Name="CurrentRest"  Foreground="White" FontSize="20" FontWeight="Bold" >1 000 грн.</TextBlock>
                 </StackPanel>
             </Border>
 
             <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="LightGray">
                 <StackPanel Orientation="Vertical">
-                    <Border Padding="10 5 10 10" Background="SkyBlue">
+                    <Border Padding="10 5 10 10" Background="#FF7043">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Foreground="White" FontSize="18">Прогноз залишку</TextBlock>
-                            <TextBlock Foreground="White" FontSize="20" FontWeight="Bold">1100 грн.</TextBlock>
+                            <TextBlock Foreground="White" FontSize="20" FontWeight="Bold">1 100 грн.</TextBlock>
                         </StackPanel>
                     </Border>
                     <Border Padding="10 5 10 10" Background="White">
@@ -100,7 +111,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8">Видалити</Button>
+            <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" Click="Delete_Click">Видалити</Button>
             <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" >Змінити</Button>
             <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Padding="20 8">Додати</Button>
         </Grid>
