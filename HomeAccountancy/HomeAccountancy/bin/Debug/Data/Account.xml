@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfAccount xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/HomeAccountancy.Model"><Account><Id>325acf86-3463-4890-a233-fdf6b8238561</Id><_CurrencyId>9d358004-f538-407f-8dd9-badfe3488d2a</_CurrencyId><_Name>Готівка</_Name><_StartBalance>60</_StartBalance></Account></ArrayOfAccount>

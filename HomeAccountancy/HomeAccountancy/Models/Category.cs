@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
+    [DataContract]
+    [KnownType(typeof(OutgoCategory))]
+    [KnownType(typeof(IncomeCategory))]
     abstract class Category : DataEntity<Category>
     {
+        [DataMember]
         public string Name { get; private set; }
 
-        public Category(long id, string name) : base(id)
+        public Category(string name) : base()
         {
             Name = name;
-        }
-
-        public override void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Save()
-        {
-            throw new NotImplementedException();
         }
 
         public abstract bool ValidateSum(double sum);

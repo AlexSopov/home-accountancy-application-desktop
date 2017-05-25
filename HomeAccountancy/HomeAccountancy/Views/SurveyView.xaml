@@ -13,7 +13,7 @@
         <converter:DateTimeToStringConverter x:Key="DateToStrongConverter" />
     </UserControl.Resources>
     
-    <Grid Background="{StaticResource MainBackgroudColor}">
+    <Grid Background="{StaticResource MainBackgroudColor}" Name="Content">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -44,7 +44,8 @@
         <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
             <DataGrid Name="DataContainer" FontSize="12" AutoGenerateColumns="False" 
                       ItemsSource="{Binding Path=Transactions}" SelectedItem="{Binding SelectedTransaction}" GridLinesVisibility="Horizontal"
-                      IsReadOnly="True" SelectionChanged="DataContainer_SelectionChanged">
+                      SelectionChanged="DataContainer_SelectionChanged"
+                      IsReadOnly="True">
                 <DataGrid.Style>
                     <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
                         <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
@@ -76,7 +77,7 @@
                     <Border Padding="10 5 10 10" Background="#FF7043">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Foreground="White" FontSize="18">Прогноз залишку</TextBlock>
-                            <TextBlock Foreground="White" FontSize="20" FontWeight="Bold">1 100 грн.</TextBlock>
+                            <TextBlock Foreground="White" FontSize="20" FontWeight="Bold">-200 грн.</TextBlock>
                         </StackPanel>
                     </Border>
                     <Border Padding="10 5 10 10" Background="White">
@@ -91,7 +92,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються витрати</TextBlock>
                             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedOutgo" 
-                                       FontSize="12" Padding="0 2">-100 грн.</TextBlock>
+                                       FontSize="12" Padding="0 2">-1 400 грн.</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються доходи</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedIncome" 
                                        FontSize="12" Padding="0 2">200 грн.</TextBlock>
@@ -111,7 +112,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" Click="Delete_Click">Видалити</Button>
+            <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" Name="DelButton" Click="Del_Click">Видалити</Button>
             <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" >Змінити</Button>
             <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Click="Add_Click" Padding="20 8">Додати</Button>
         </Grid>

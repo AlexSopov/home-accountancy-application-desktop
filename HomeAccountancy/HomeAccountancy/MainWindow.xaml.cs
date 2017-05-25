@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using HomeAccountancy.Model;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 
@@ -9,6 +10,8 @@ namespace HomeAccountancy
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public object Accounts { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -16,7 +19,6 @@ namespace HomeAccountancy
 
         private /*async*/ void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
             /*if (e.Cancel)
                 return;
 
@@ -36,6 +38,16 @@ namespace HomeAccountancy
 
             if (result == MessageDialogResult.Affirmative)
                 Application.Current.Shutdown();*/
+
+            //Currency currency = new Currency("Українська гривня", "грн.");
+            //Category category = new OutgoCategory("Витрати");
+            //Account acc = new Account("Готівка", currency.Id, 0);
+
+            DataEntity<Account>.SerializeEntities();
+            DataEntity<Category>.SerializeEntities();
+            DataEntity<Currency>.SerializeEntities();
+            DataEntity<Rate>.SerializeEntities();
+            DataEntity<Transaction>.SerializeEntities();
         }
 
         private void ShowSurveyView_click(object sender, RoutedEventArgs e)
@@ -48,6 +60,11 @@ namespace HomeAccountancy
         {
             MainTabControl.SelectedIndex = 1;
             ShowSurveyView.IsChecked = false;
+        }
+
+        private void Accounts_click(object sender, RoutedEventArgs e)
+        {
+            new AccountsWindow().ShowDialog();
         }
     }
 }

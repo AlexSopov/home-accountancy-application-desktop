@@ -30,9 +30,11 @@
                     <ToggleButton Click="ShowReportView_Click" Name="ShowReportView">Календар</ToggleButton>
                     <ToggleButton>Графік</ToggleButton>
                     <Separator />
-                    <Button>Рахунки</Button>
+                    <Button Click="Accounts_click">Рахунки</Button>
                     <Button>Категорії</Button>
                     <Button>Валюти</Button>
+                    <Separator />
+                    <Button>Фільтр</Button>
                 </ToolBar>
             </ToolBarTray>
         </Border>

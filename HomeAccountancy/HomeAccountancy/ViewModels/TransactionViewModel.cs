@@ -15,7 +15,7 @@ namespace HomeAccountancy.ViewModels
             set
             {
                 _SelectedTransaction = value;
-                OnPropertyChanged("SelectedPhone");
+                OnPropertyChanged("SelectedTransaction");
             }
         }
 

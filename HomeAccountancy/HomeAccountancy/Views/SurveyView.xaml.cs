@@ -1,4 +1,5 @@
-﻿using HomeAccountancy.ViewModels;
+﻿using HomeAccountancy.Model;
+using HomeAccountancy.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,6 +8,7 @@ namespace HomeAccountancy
 {
     public partial class SurveyView : UserControl
     {
+        TransactionViewModel Context;
         public SurveyView()
         {
             InitializeComponent();
@@ -14,22 +16,33 @@ namespace HomeAccountancy
             DateFrom.SelectedDate = DateTime.Today;
             DateTo.SelectedDate = DateTime.Today.AddMonths(1);
 
-            DataContext = new TransactionViewModel();
-            DataContainer.ItemsSource = ((TransactionViewModel)DataContext).Transactions;
-        }
+            Context = new TransactionViewModel();
+            DataContext = Context;
 
-        private void DataContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-        }
+            DataContainer.ItemsSource = Context.Transactions;
+        } 
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             new SingleTransactionWindow().ShowDialog();
+        }
+
+        private void DataContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Context.SelectedTransaction = DataContainer.SelectedItem as Transaction;
+        }
+
+        private void Del_Click(object sender, RoutedEventArgs e)
+        {
+            Transaction transaction = Context.SelectedTransaction;
+            if (transaction != null)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Ви дійсно бажаєте видалити запис?", "Підтвердження дії", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    Context.Transactions.Remove(transaction);
+                }
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data.SQLite;
+﻿using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
+    [DataContract]
     class OutgoCategory : Category
     {
-        public OutgoCategory(long id, string name) : base(id, name)
+        public OutgoCategory(string name) : base(name)
         {
         }
 

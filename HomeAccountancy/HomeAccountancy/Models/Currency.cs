@@ -1,26 +1,20 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
+    [DataContract]
     class Currency : DataEntity<Currency>
     {
+        [DataMember]
         public string FullName { get; private set; }
+        [DataMember]
         public string ShortageName { get; private set; }
 
-        public Currency(long id, string fullName, string shortageName) : base(id)
+        public Currency(string fullName, string shortageName) : base()
         {
             FullName = fullName;
             ShortageName = shortageName;
-        }
-
-        public override void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Save()
-        {
-            throw new NotImplementedException();
         }
 
         public override string ToString()

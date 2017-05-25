@@ -1,15 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
-    class Account : DataEntity<Account>
+    [DataContract]
+    class Account : DataEntity<Account>, INotifyPropertyChanged
     {
-        public string Name { get; private set; }
-        public long CurrencyId { get; private set; }
-        public double StartBalance { get; private set; }
+        [DataMember]
+        public string _Name;
 
-        public Account(long id, string name, long currencyId, double startBalance) : base(id)
+        [DataMember]
+        public Guid _CurrencyId;
+
+        [DataMember]
+        public double _StartBalance;
+
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+        public Guid CurrencyId
+        {
+            get { return _CurrencyId; }
+            set
+            {
+                _CurrencyId = value;
+                OnPropertyChanged("CurrencyId");
+            }
+        }
+        public double StartBalance
+        {
+            get { return _StartBalance; }
+            set
+            {
+                _StartBalance = value;
+                OnPropertyChanged("StartBalance");
+            }
+        }
+
+        public double Rent {
+            get
+            {
+                return 0;
+            }
+        }
+        public Currency Currency
+        {
+            get
+            {
+                return Currency.GetById(CurrencyId);
+            }
+            set
+            {
+                _CurrencyId = value.Id;
+                OnPropertyChanged("Currency");
+            }
+        }
+
+        public Account(string name, Guid currencyId, double startBalance) : base()
         {
             Name = name;
             CurrencyId = currencyId;
@@ -22,16 +77,12 @@ namespace HomeAccountancy.Model
             {
                 throw new NotImplementedException();
             }
-        } 
-
-        public override void Delete()
-        {
-            throw new NotImplementedException();
         }
 
-        public override void Save()
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string property = "")
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
         public override string ToString()

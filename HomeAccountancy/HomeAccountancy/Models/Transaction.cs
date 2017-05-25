@@ -1,18 +1,33 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
+    [DataContract]
+    [KnownType(typeof(IncomeTransaction))]
+    [KnownType(typeof(OutgoTransaction))]
+    [KnownType(typeof(TransferTransaction))]
     abstract class Transaction : DataEntity<Transaction>, INotifyPropertyChanged
     {
-        private long _CategoryId;
-        private long _FromAccountId;
+        [DataMember]
+        private Guid _CategoryId;
+
+        [DataMember]
+        private Guid _FromAccountId;
+
+        [DataMember]
         private double _Sum;
+
+        [DataMember]
         private string _Description;
+
+        [DataMember]
         private DateTime _Date;
+
         private double _Rest;
 
-        public long CategoryId
+        public Guid CategoryId
         {
             get { return _CategoryId; }
             set
@@ -21,7 +36,7 @@ namespace HomeAccountancy.Model
                 OnPropertyChanged("Category");
             }
         }
-        public long FromAccountId
+        public Guid FromAccountId
         {
             get { return _FromAccountId; }
             set
@@ -59,44 +74,61 @@ namespace HomeAccountancy.Model
             set { Rest = value; OnPropertyChanged("Rest"); }
         }
 
+        Category _TransactionCategory;
+        Account _TransactionAccount;
+        Currency _TransactionCurrency;
         public Category TransactionCategory
         {
             get
             {
-                return Category.GetById(_CategoryId);
+                if (_TransactionCategory == null)
+                    _TransactionCategory = Category.GetById(_CategoryId);
+
+                return _TransactionCategory;
+            }
+            set
+            {
+                // TOOD Id binding data
+                _TransactionCategory = value;
+                //_CategoryId = _TransactionCategory.Id;
             }
         }
         public Account TransactionAccount
         {
             get
             {
-                return Account.GetById(_FromAccountId);
+                if (_TransactionAccount == null)
+                    _TransactionAccount = Account.GetById(_FromAccountId);
+
+                return _TransactionAccount;
+            }
+            set
+            {
+                _TransactionAccount = value;
             }
         }
         public Currency TransactionCurrency
         {
             get
             {
-                return Currency.GetById(TransactionAccount.CurrencyId);
+                if (_TransactionCurrency == null)
+                    _TransactionCurrency = Currency.GetById(TransactionAccount.CurrencyId);
+
+                return _TransactionCurrency;
+            }
+            set
+            {
+                _TransactionCurrency = value;
             }
         }
 
-        public Transaction(long id, long categoryId, long fromAccountId, DateTime date, double sum, string description) : base(id)
+        public Transaction(Guid categoryId, Guid fromAccountId, DateTime date, double sum, string description) : base()
         {
             _CategoryId = categoryId;
             _Description = description;
             _FromAccountId = fromAccountId;
             _Sum = sum;
             _Date = date;
-        }
-
-        public override void Delete()
-        {
-            throw new NotImplementedException();
-        }
-        public override void Save()
-        {
-            throw new NotImplementedException();
         }
 
         public abstract bool ValidateSum();
