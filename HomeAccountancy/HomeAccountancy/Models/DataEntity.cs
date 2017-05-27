@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.SQLite;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;

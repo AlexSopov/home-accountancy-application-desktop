@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         GlowBrush="LightGray"
         TitleCaps="False"
-        Width="700" Height="500" Margin="0" Padding="0"
+        Width="650" Height="500" Margin="0" Padding="0"
         ResizeMode="NoResize"
         Title="Рахунки"
         Background="#FAFAFA">
@@ -28,7 +28,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2 0"/>
+            <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2 0"/>
             <ListBox Grid.Column="0" Name="AccountsList" 
                      ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}" 
                      FontSize="14" BorderBrush="LightGray" BorderThickness="0.5">
@@ -97,7 +97,7 @@
             </Border>
 
             <Button Grid.Row="2" Grid.Column="2" Width="100" Style="{DynamicResource SquareButtonStyle}"
-                        Padding="10 7" Margin="5 10 0 0" HorizontalAlignment="Right" Click="Close_Click">Закрити</Button>
+                        Padding="10 7" Margin="5 10 0 0" HorizontalAlignment="Right" Click="Close_Click">Зберегти</Button>
 
         </Grid>
     </Border>

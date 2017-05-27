@@ -31,7 +31,7 @@
                     <ToggleButton>Графік</ToggleButton>
                     <Separator />
                     <Button Click="Accounts_click">Рахунки</Button>
-                    <Button>Категорії</Button>
+                    <Button Click="Categories_Click">Категорії</Button>
                     <Button>Валюти</Button>
                     <Separator />
                     <Button>Фільтр</Button>

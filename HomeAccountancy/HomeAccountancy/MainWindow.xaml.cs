@@ -1,4 +1,5 @@
 ﻿using HomeAccountancy.Model;
+using HomeAccountancy.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
@@ -40,7 +41,7 @@ namespace HomeAccountancy
                 Application.Current.Shutdown();*/
 
             //Currency currency = new Currency("Українська гривня", "грн.");
-            //Category category = new OutgoCategory("Витрати");
+            //Category category = new OutgoCategory("Витрати", "");
             //Account acc = new Account("Готівка", currency.Id, 0);
 
             DataEntity<Account>.SerializeEntities();
@@ -65,6 +66,11 @@ namespace HomeAccountancy
         private void Accounts_click(object sender, RoutedEventArgs e)
         {
             new AccountsWindow().ShowDialog();
+        }
+
+        private void Categories_Click(object sender, RoutedEventArgs e)
+        {
+            new CategoriesWindow().ShowDialog();
         }
     }
 }

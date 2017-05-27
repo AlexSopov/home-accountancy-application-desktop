@@ -42,13 +42,19 @@ namespace HomeAccountancy.Model
             {
                 _StartBalance = value;
                 OnPropertyChanged("StartBalance");
+                OnPropertyChanged("Rent");
             }
         }
 
         public double Rent {
             get
             {
-                return 0;
+                double sum = _StartBalance;
+
+                foreach (Transaction transaction in Transactions)
+                    sum += transaction.Sum;
+
+                return sum;
             }
         }
         public Currency Currency
@@ -75,7 +81,14 @@ namespace HomeAccountancy.Model
         {
             get
             {
-                throw new NotImplementedException();
+                List<Transaction> transactions = new List<Transaction>();
+                foreach (Transaction transaction in Transaction.Entities)
+                {
+                    if (transaction.Id == Id)
+                        transactions.Add(transaction);
+                }
+
+                return transactions;
             }
         }
 

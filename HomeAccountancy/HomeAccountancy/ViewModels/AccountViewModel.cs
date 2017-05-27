@@ -7,15 +7,15 @@ namespace HomeAccountancy.ViewModels
 {
     class AccountViewModel : INotifyPropertyChanged
     {
-        private Account selectedPhone;
+        private Account _SelectedAccount;
 
         public ObservableCollection<Account> Accounts { get; set; }
         public Account SelectedAccount
         {
-            get { return selectedPhone; }
+            get { return _SelectedAccount; }
             set
             {
-                selectedPhone = value;
+                _SelectedAccount = value;
                 OnPropertyChanged("SelectedAccount");
             }
         }
@@ -35,7 +35,7 @@ namespace HomeAccountancy.ViewModels
             get
             {
                 return _AddNewCommand ??
-                  (_AddNewCommand = new RelayCommand(obj =>
+                  (_AddNewCommand = new RelayCommand(commandAgrument =>
                   {
                       Account account = new Account("Новий рахунок", Guid.Empty, 0);
                       SelectedAccount = account;
@@ -59,7 +59,7 @@ namespace HomeAccountancy.ViewModels
                       if (account != null)
                           Accounts.Remove(account);
                   },
-                 (commandAgrument) => Accounts.Count > 0));
+                 (commandAgrument) => Accounts.Count > 0 && SelectedAccount != null));
             }
         }
 

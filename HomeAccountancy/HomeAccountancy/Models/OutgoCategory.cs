@@ -5,7 +5,7 @@ namespace HomeAccountancy.Model
     [DataContract]
     class OutgoCategory : Category
     {
-        public OutgoCategory(string name) : base(name)
+        public OutgoCategory(string name, string description) : base(name, description)
         {
         }
 

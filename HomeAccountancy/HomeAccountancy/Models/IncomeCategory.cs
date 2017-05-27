@@ -1,13 +1,11 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
     [DataContract]
     class IncomeCategory : Category
     {
-        public IncomeCategory(string name) : base(name)
+        public IncomeCategory(string name, string description) : base(name, description)
         {
         }
 
