@@ -84,7 +84,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Controls:NumericUpDown Margin="5 5 0 5" HasDecimals="True" Speedup="True" Grid.Column="0"
-                                    Minimum="0" Maximum = "1000000" Interval="10" StringFormat="N2" 
+                                    Minimum="-1000000" Maximum = "1000000" Interval="10" StringFormat="N2" 
                                     Value="{Binding StartBalance, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5 0 0 0" 
                                    Text="{Binding ElementName=CurrencyComboBox, Path=SelectedItem}"/>

@@ -2,6 +2,7 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                       xmlns:local="clr-namespace:HomeAccountancy"
                       Title="Домашня бухгатлтерія"
                       WindowStartupLocation="CenterScreen"
@@ -9,7 +10,9 @@
                       BorderThickness="1"
                       GlowBrush="LightGray"
                       TitleCaps="False"
-                      Height="700" Width="1200"  Background="{StaticResource MainBackgroudColor}">
+                      Height="700" Width="1200" 
+                      WindowState="Maximized"
+                      Background="{StaticResource MainBackgroudColor}">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -26,26 +29,69 @@
         <Border Grid.Row="1" BorderThickness="0 0.5" BorderBrush="Gray">
             <ToolBarTray IsLocked="True" Orientation="Horizontal" Background="{StaticResource ResourceKey=LightGray1}">
                 <ToolBar Height="50" VerticalAlignment="Top" Grid.Row="1" FontSize="14" >
-                    <ToggleButton Click="ShowSurveyView_click" Name="ShowSurveyView">Головна</ToggleButton>
-                    <ToggleButton Click="ShowReportView_Click" Name="ShowReportView">Календар</ToggleButton>
-                    <ToggleButton>Графік</ToggleButton>
+                    <ToggleButton Click="ShowSurveyView_click" Name="ShowSurveyView" Margin="5">Головна</ToggleButton>
+                    <ToggleButton Click="ShowDiagram_Click" Name="ShowDiagramView" Margin="5">Діаграми</ToggleButton>
+                    <Button Click="ShowPlans_Click" Name="ShowPlanView" Margin="5">Планування</Button>
                     <Separator />
-                    <Button Click="Accounts_click">Рахунки</Button>
-                    <Button Click="Categories_Click">Категорії</Button>
-                    <Button>Валюти</Button>
+                    <Button Click="Accounts_click" Margin="5">Рахунки</Button>
+                    <Button Click="Categories_Click" Margin="5">Категорії</Button>
+                    <Button Margin="5">Валюти</Button>
                     <Separator />
-                    <Button>Фільтр</Button>
+                    <Button Margin="5">Фільтр</Button>
                 </ToolBar>
             </ToolBarTray>
         </Border>
 
         <Border Grid.Row="2" Padding="10">
-            <Controls:MetroAnimatedSingleRowTabControl  x:Name="MainTabControl" FontSize="15" TabStripPlacement="Bottom">
+            <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" FontSize="15" TabStripPlacement="Bottom" Margin="0 10 0 0">
                 <TabItem Visibility="Collapsed">
                     <local:SurveyView DataContext="{Binding}" />
                 </TabItem>
-                <TabItem Visibility="Collapsed">
-                    <local:ReportView DataContext="{Binding}" />
+                <TabItem Visibility="Collapsed" Name="ChartPresenter">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  Width="250"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Показати:" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="{Binding SelectedCategoryType}">
+                                <TextBlock Text="Витрати" />
+                                <TextBlock Text="Поповнення" />
+                            </ComboBox>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Тип діаграми:" VerticalAlignment="Center" Margin="0 5 5 0"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1"  Margin="0 5 0 0" SelectedIndex="{Binding SelectedDiagramType}">
+                                <TextBlock Text="Кільцева" />
+                                <TextBlock Text="Стовпчата" />
+                            </ComboBox>
+                        </Grid>
+
+                        <TabControl Grid.Column="1" SelectedIndex="{Binding SelectedDiagramType}" Margin="5 0 0 0">
+                            <TabItem Visibility="Collapsed">
+                                <TabItem.Content>
+                                    <lvc:PieChart Grid.Column="1" LegendLocation="Right" DataClick="Chart_OnDataClick" Hoverable="False" 
+                                      DataTooltip="{x:Null}" Name="PieChart" Series="{Binding PieSeriesCollection}" />
+                                </TabItem.Content>
+                            </TabItem>
+                            <TabItem Visibility="Collapsed">
+                                <TabItem.Content>
+                                    <lvc:CartesianChart Grid.Column="1" LegendLocation="Right" Hoverable="False" 
+                                      DataTooltip="{x:Null}" Name="ColumnChart" Series="{Binding ColumnSeriesCollection}" />
+                                </TabItem.Content>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
                 </TabItem>
             </Controls:MetroAnimatedSingleRowTabControl>
         </Border>

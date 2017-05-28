@@ -1,4 +1,3 @@
-D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.csprojResolveAssemblyReference.cache
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Windows\AccountsWindow.g.cs
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\MainWindow.g.cs
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Windows\CategoriesWindow.g.cs
@@ -31,3 +30,12 @@ D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccounta
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.csproj.GenerateResource.Cache
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.exe
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.pdb
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\LiveCharts.dll
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\LiveCharts.Wpf.dll
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\LiveCharts.pdb
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\LiveCharts.xml
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\LiveCharts.Wpf.pdb
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\bin\Debug\LiveCharts.Wpf.xml
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.csprojResolveAssemblyReference.cache
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Windows\RegularTransactionsWindow.g.cs
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Windows\RegularTransactionsWindow.baml

@@ -2,6 +2,8 @@
 using MahApps.Metro.Controls;
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace HomeAccountancy
 {
@@ -14,25 +16,49 @@ namespace HomeAccountancy
         {
             InitializeComponent();
 
-            CurrentDate.SelectedDate = DateTime.Now;
             Categories.ItemsSource = Category.Entities;
+            Accounts.ItemsSource = Account.Entities;
+            Sum.Value = 0;
 
             if (Category.Entities.Count > 0)
                 Categories.SelectedIndex = 0;
 
-            Accounts.ItemsSource = Account.Entities;
-
             if (Account.Entities.Count > 0)
                 Accounts.SelectedIndex = 0;
 
-            Sum.Value = 0;
-        }
+            CurrentDate.SelectedDate = DateTime.Now;
+            MainData.DataContextChanged += (sender, e) => InitIfDataContext();
+        } 
 
+        private void InitIfDataContext()
+        {
+            if (MainData.DataContext == null)
+                return;
+
+            Transaction transaction = MainData.DataContext as Transaction;
+            Accounts.SelectedItem = transaction.TransactionAccount;
+            CurrentDate.SelectedDate = transaction.Date;
+            Categories.SelectedItem = transaction.TransactionCategory;
+            Sum.Value = transaction.Sum;
+            Comment.Text = transaction.Description;
+        }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            // TOOD Validating
             if (Categories.SelectedItem == null || Accounts.SelectedItem == null)
                 return;
+
+            if (MainData.DataContext != null)
+            {
+                Transaction currentTransaction = MainData.DataContext as Transaction;
+                currentTransaction.TransactionAccount = Accounts.SelectedItem as Account;
+                currentTransaction.Date = CurrentDate.SelectedDate.Value;
+                currentTransaction.TransactionCategory = Categories.SelectedItem as Category;
+                currentTransaction.Sum = Sum.Value.Value;
+                currentTransaction.Description = Comment.Text;
+
+                Close();
+                return;
+            }
 
             Transaction transaction = null;
 
@@ -50,9 +76,10 @@ namespace HomeAccountancy
             Close();
         }
 
-        private void Close_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
+
     }
 }

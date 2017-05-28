@@ -50,7 +50,7 @@ namespace HomeAccountancy.Model
             get { return _Sum; }
             set
             {
-                Sum = value;
+                _Sum = value;
                 OnPropertyChanged("Sum");
             }
         }
@@ -59,19 +59,19 @@ namespace HomeAccountancy.Model
             get { return _Description; }
             set
             {
-                Description = value;
+                _Description = value;
                 OnPropertyChanged("Description");
             }
         }
         public DateTime Date
         {
             get { return _Date; }
-            set { Date = value; OnPropertyChanged("Date"); }
+            set { _Date = value; OnPropertyChanged("Date"); }
         }
         public double Rest
         {
             get { return _Rest; }
-            set { Rest = value; OnPropertyChanged("Rest"); }
+            set { _Rest = value; OnPropertyChanged("Rest"); }
         }
 
         Category _TransactionCategory;
@@ -88,9 +88,9 @@ namespace HomeAccountancy.Model
             }
             set
             {
-                // TOOD Id binding data
                 _TransactionCategory = value;
-                //_CategoryId = _TransactionCategory.Id;
+                _CategoryId = _TransactionCategory.Id;
+                OnPropertyChanged("TransactionCategory");
             }
         }
         public Account TransactionAccount
@@ -105,13 +105,15 @@ namespace HomeAccountancy.Model
             set
             {
                 _TransactionAccount = value;
+                _FromAccountId = _TransactionAccount.Id;
+                OnPropertyChanged("TransactionAccount");
             }
         }
         public Currency TransactionCurrency
         {
             get
             {
-                if (_TransactionCurrency == null)
+                if (_TransactionCurrency == null && TransactionAccount != null)
                     _TransactionCurrency = Currency.GetById(TransactionAccount.CurrencyId);
 
                 return _TransactionCurrency;

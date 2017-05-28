@@ -84,7 +84,7 @@ namespace HomeAccountancy.Model
                 List<Transaction> transactions = new List<Transaction>();
                 foreach (Transaction transaction in Transaction.Entities)
                 {
-                    if (transaction.Id == Id)
+                    if (transaction.FromAccountId == Id)
                         transactions.Add(transaction);
                 }
 

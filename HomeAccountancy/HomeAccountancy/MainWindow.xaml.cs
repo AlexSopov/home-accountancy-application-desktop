@@ -1,14 +1,13 @@
 ﻿using HomeAccountancy.Model;
+using HomeAccountancy.ViewModels;
 using HomeAccountancy.Windows;
+using LiveCharts;
+using LiveCharts.Wpf;
 using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 
 namespace HomeAccountancy
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : MetroWindow
     {
         public object Accounts { get; private set; }
@@ -16,6 +15,7 @@ namespace HomeAccountancy
         public MainWindow()
         {
             InitializeComponent();
+            ChartPresenter.DataContext = new ChartViewModel();
         }
 
         private /*async*/ void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -54,23 +54,37 @@ namespace HomeAccountancy
         private void ShowSurveyView_click(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedIndex = 0;
-            ShowReportView.IsChecked = false;
+            ShowDiagramView.IsChecked = false;
         }
-
-        private void ShowReportView_Click(object sender, RoutedEventArgs e)
+        private void ShowPlans_Click(object sender, RoutedEventArgs e)
+        {
+            new RegularTransactionsWindow().ShowDialog();
+        }
+        private void ShowDiagram_Click(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedIndex = 1;
             ShowSurveyView.IsChecked = false;
-        }
 
+            ChartPresenter.DataContext = new ChartViewModel();
+        }
         private void Accounts_click(object sender, RoutedEventArgs e)
         {
             new AccountsWindow().ShowDialog();
         }
-
         private void Categories_Click(object sender, RoutedEventArgs e)
         {
             new CategoriesWindow().ShowDialog();
+        }
+
+        private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
+        {
+            PieChart chart = (PieChart)chartpoint.ChartView;
+
+            foreach (PieSeries series in chart.Series)
+                series.PushOut = 0;
+
+            var selectedSeries = (PieSeries)chartpoint.SeriesView;
+            selectedSeries.PushOut = 5;
         }
     }
 }

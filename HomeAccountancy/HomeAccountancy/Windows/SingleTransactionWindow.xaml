@@ -18,7 +18,7 @@
         Background="#FAFAFA">
 
     <Border Padding="10">
-        <Grid>
+        <Grid Name="MainData">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition />
@@ -40,17 +40,17 @@
 
 
             <TextBlock Grid.Row="2" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Дата:</TextBlock>
-            <DatePicker Grid.Row="2" Grid.Column="1" DockPanel.Dock="Left" 
+            <DatePicker Grid.Row="2" Grid.Column="1" DockPanel.Dock="Left"
                         DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
                         Controls:TextBoxHelper.Watermark="Дата" Name="CurrentDate"
                         HorizontalAlignment="Stretch" Margin="0 0 0 8" />
 
             <TextBlock Grid.Row="3" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Категорія:</TextBlock>
-            <ComboBox Grid.Row="3" Grid.Column="1"  Margin="0 0 0 8" Name="Categories"></ComboBox>
+            <ComboBox Grid.Row="3" Grid.Column="1"  Margin="0 0 0 8" Name="Categories" />
 
             <TextBlock Grid.Row="4" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Сума:</TextBlock>
             <Controls:NumericUpDown Grid.Row="4" Grid.Column="1"  Margin="0 0 0 8" HasDecimals="True" Speedup="True"
-                                    Minimum="0" Maximum = "1000000" Interval="10" StringFormat="N2" Name="Sum"></Controls:NumericUpDown>
+                                    Minimum="-1000000" Maximum = "1000000" Interval="10" StringFormat="N2" Name="Sum" />
 
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Коментар:</TextBlock>
             <TextBox Grid.Row="5" Grid.Column="1"  Margin="0 0 0 8" Name="Comment"></TextBox>
