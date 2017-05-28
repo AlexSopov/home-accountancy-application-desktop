@@ -24,23 +24,31 @@ namespace HomeAccountancy.Model
             if (!File.Exists("Data//" + typeof(T).Name + ".xml"))
                 return;
 
-            FileStream stream = new FileStream("Data//" + typeof(T).Name + ".xml", FileMode.OpenOrCreate);
-            DataContractSerializer serializer = new DataContractSerializer(typeof(ObservableCollection<T>));
-
-            XmlReader xmlReader = XmlReader.Create(stream);
+            FileStream stream = null;
+            DataContractSerializer serializer = null;
+            XmlReader xmlReader = null;
 
             try
             {
+                stream = new FileStream("Data//" + typeof(T).Name + ".xml", FileMode.Open);
+
+                serializer = new DataContractSerializer(typeof(ObservableCollection<T>));
+                xmlReader = XmlReader.Create(stream);
+
                 Entities = (ObservableCollection<T>)serializer.ReadObject(xmlReader);
             }
             catch { }
+            finally
+            {
+                xmlReader?.Close();
+                stream?.Close();
+            }
 
-            xmlReader.Close();
-            stream.Close();
+
         }
         public static void SerializeEntities()
         {
-            FileStream stream = new FileStream("Data//" + typeof(T).Name + ".xml", FileMode.OpenOrCreate);
+            FileStream stream = new FileStream("Data//" + typeof(T).Name + ".xml", FileMode.Create);
             DataContractSerializer serializer = new DataContractSerializer(typeof(ObservableCollection<T>));
 
             XmlWriter xmlWriter = XmlWriter.Create(stream);

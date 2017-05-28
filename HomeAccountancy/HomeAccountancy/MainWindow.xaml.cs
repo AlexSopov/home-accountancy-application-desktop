@@ -41,7 +41,7 @@ namespace HomeAccountancy
                 Application.Current.Shutdown();*/
 
             //Currency currency = new Currency("Українська гривня", "грн.");
-            //Category category = new OutgoCategory("Витрати", "");
+           // Category category = new OutgoCategory("Витрати", "");
             //Account acc = new Account("Готівка", currency.Id, 0);
 
             DataEntity<Account>.SerializeEntities();
