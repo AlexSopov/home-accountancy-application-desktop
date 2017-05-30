@@ -68,7 +68,7 @@ namespace HomeAccountancy.ViewModels
                       Transaction transaction = commandAgrument as Transaction;
 
                       if (transaction != null)
-                          Transactions.Remove(transaction);
+                          transaction.Delete();
                   },
                  (commandAgrument) => Transactions.Count > 0 && SelectedTransaction != null));
             }

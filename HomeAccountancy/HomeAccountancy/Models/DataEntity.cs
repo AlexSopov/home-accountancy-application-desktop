@@ -7,19 +7,30 @@ using System.Xml;
 namespace HomeAccountancy.Model
 {
     [DataContract]
-    abstract class DataEntity<T> where T: DataEntity<T>
+    public abstract class DataEntity<T> where T: DataEntity<T>
     {   
         [DataMember]   
-        public Guid Id { get; protected set; }
-        public static ObservableCollection<T> Entities = new ObservableCollection<T>();
+        public Guid Id { get; private set; }
+        public static ObservableCollection<T> Entities { get; private set; }
 
+        static DataEntity()
+        {
+            Entities = new ObservableCollection<T>();
+        }
         public DataEntity()
         {
             Id = Guid.NewGuid();
+        }
+        public virtual void Commit()
+        {
             Entities.Add((T)this);
         }
+        public virtual void Delete()
+        {
+            Entities.Remove((T)this);
+        }
 
-        public static void LoadEntities()
+        public static void DeserializeEntities()
         {
             if (!File.Exists("Data//" + typeof(T).Name + ".xml"))
                 return;

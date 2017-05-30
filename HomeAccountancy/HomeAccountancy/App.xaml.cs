@@ -7,11 +7,17 @@ namespace HomeAccountancy
     {
         public App()
         {
-            DataEntity<Account>.LoadEntities();
-            DataEntity<Category>.LoadEntities();
-            DataEntity<Currency>.LoadEntities();
-            DataEntity<Rate>.LoadEntities();
-            DataEntity<Transaction>.LoadEntities();
+            DataEntity<Account>.DeserializeEntities();
+            DataEntity<Category>.DeserializeEntities();
+            DataEntity<Currency>.DeserializeEntities();
+            DataEntity<Rate>.DeserializeEntities();
+            DataEntity<Transaction>.DeserializeEntities();
+
+            for (int i = 0; i < Transaction.Entities.Count; i++)
+            {
+                if (Transaction.Entities[i] is RegularTransaction)
+                    Transaction.Entities[i].Commit();
+            }
         }
     }
 }

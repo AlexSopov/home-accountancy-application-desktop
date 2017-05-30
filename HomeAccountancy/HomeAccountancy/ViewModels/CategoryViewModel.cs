@@ -35,6 +35,7 @@ namespace HomeAccountancy.ViewModels
                           IncomeCategories.Add(category);
                       }
 
+                      category?.Commit();
                       _SelectedCategory = category;
                       OnPropertyChanged("SelectedCategory");
                   }));
@@ -48,20 +49,14 @@ namespace HomeAccountancy.ViewModels
                   (_DeleteCommand = new RelayCommand(commandAgrument =>
                   {
                       Category category = commandAgrument as Category;
-                      for (int i = 0; i < Transaction.Entities.Count; i++)
-                      {
-                          if (Transaction.Entities[i].CategoryId == category.Id)
-                              Transaction.Entities.Remove(Transaction.Entities[i]);
-                      }
 
                       if (category != null)
                       {
-                          Categories.Remove(category);
-
                           if (category is IncomeCategory)
                               IncomeCategories.Remove(category);
                           else
                               OutgoCategories.Remove(category);
+                          category.Delete();
                       }
                   },
                  (commandAgrument) =>

@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:HomeAccountancy" 
         mc:Ignorable="d"
         BorderThickness="1"
-        ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         GlowBrush="LightGray"
         TitleCaps="False"
+        Icon="../Content/icon.ico"
         Width="650" Height="500" Margin="0" Padding="0"
         ResizeMode="NoResize"
         Title="Рахунки"
@@ -75,7 +75,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Назва рахунку</TextBlock>
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5 5 0 5" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5 5 0 5" Text="{Binding Path=Name, UpdateSourceTrigger=LostFocus}" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Початковий баланс</TextBlock>
                     <Grid Grid.Row="1" Grid.Column="1">
@@ -85,7 +85,7 @@
                         </Grid.ColumnDefinitions>
                         <Controls:NumericUpDown Margin="5 5 0 5" HasDecimals="True" Speedup="True" Grid.Column="0"
                                     Minimum="-1000000" Maximum = "1000000" Interval="10" StringFormat="N2" 
-                                    Value="{Binding StartBalance, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Value="{Binding StartBalance, UpdateSourceTrigger=LostFocus}"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5 0 0 0" 
                                    Text="{Binding ElementName=CurrencyComboBox, Path=SelectedItem}"/>
                     </Grid>

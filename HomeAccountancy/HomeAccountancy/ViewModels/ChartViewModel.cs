@@ -48,7 +48,8 @@ namespace HomeAccountancy.ViewModels
             PieSeriesCollection = new SeriesCollection();
             ColumnSeriesCollection = new SeriesCollection();
 
-            GeneratePieChart();
+            _SelectedDiagramType = 1;
+            GenerateColumnChart();
         }
 
         private void GeneratePieChart()
@@ -65,7 +66,7 @@ namespace HomeAccountancy.ViewModels
                     if (transaction.CategoryId == category.Id &&
                         ((transaction is OutgoTransaction && _SelectedCategoryType == 0) || 
                         (transaction is IncomeTransaction && _SelectedCategoryType == 1)))
-                        sum += transaction.Sum;
+                        sum += Math.Abs(transaction.Sum);
                 }
 
                 if (sum != 0)
@@ -102,7 +103,7 @@ namespace HomeAccountancy.ViewModels
                     if (transaction.CategoryId == category.Id &&
                         ((transaction is OutgoTransaction && _SelectedCategoryType == 0) ||
                         (transaction is IncomeTransaction && _SelectedCategoryType == 1)))
-                        sum += transaction.Sum;
+                        sum += Math.Abs(transaction.Sum);
                 }
 
                 if (sum != 0)

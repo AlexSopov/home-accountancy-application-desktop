@@ -3,15 +3,15 @@
 namespace HomeAccountancy.Model
 {
     [DataContract]
-    class OutgoCategory : Category
+    public class OutgoCategory : Category
     {
         public OutgoCategory(string name, string description) : base(name, description)
         {
         }
 
-        public override bool ValidateSum(double sum)
+        public override int GetTransactionSign()
         {
-            return sum <= 0;
+            return -1;
         }
     }
 }

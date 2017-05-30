@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeAccountancy.Model;
+using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
@@ -8,7 +9,8 @@ namespace HomeAccountancy.Model
     [KnownType(typeof(IncomeTransaction))]
     [KnownType(typeof(OutgoTransaction))]
     [KnownType(typeof(TransferTransaction))]
-    abstract class Transaction : DataEntity<Transaction>, INotifyPropertyChanged
+    [KnownType(typeof(RegularTransaction))]
+    public abstract class Transaction : DataEntity<Transaction>, INotifyPropertyChanged, IComparable<Transaction>
     {
         [DataMember]
         private Guid _CategoryId;
@@ -74,9 +76,10 @@ namespace HomeAccountancy.Model
             set { _Rest = value; OnPropertyChanged("Rest"); }
         }
 
-        Category _TransactionCategory;
-        Account _TransactionAccount;
-        Currency _TransactionCurrency;
+        private Category _TransactionCategory;
+        private Account _TransactionAccount;
+        private Currency _TransactionCurrency;
+
         public Category TransactionCategory
         {
             get
@@ -139,6 +142,11 @@ namespace HomeAccountancy.Model
         public void OnPropertyChanged(string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        public int CompareTo(Transaction other)
+        {
+            return _Date.CompareTo(other._Date);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace HomeAccountancy
             Accounts.SelectedItem = transaction.TransactionAccount;
             CurrentDate.SelectedDate = transaction.Date;
             Categories.SelectedItem = transaction.TransactionCategory;
-            Sum.Value = transaction.Sum;
+            Sum.Value = Math.Abs(transaction.Sum);
             Comment.Text = transaction.Description;
         }
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace HomeAccountancy
                 currentTransaction.TransactionAccount = Accounts.SelectedItem as Account;
                 currentTransaction.Date = CurrentDate.SelectedDate.Value;
                 currentTransaction.TransactionCategory = Categories.SelectedItem as Category;
-                currentTransaction.Sum = Sum.Value.Value;
+                currentTransaction.Sum = Sum.Value.Value * (Categories.SelectedItem as Category).GetTransactionSign();
                 currentTransaction.Description = Comment.Text;
 
                 Close();
@@ -61,18 +61,20 @@ namespace HomeAccountancy
             }
 
             Transaction transaction = null;
+            double sum = Sum.Value.Value * (Categories.SelectedItem as Category).GetTransactionSign();
 
             if (Categories.SelectedItem is IncomeCategory)
             {
                 transaction = new IncomeTransaction(((Category)(Categories.SelectedItem)).Id,
-                    ((Account)(Accounts.SelectedItem)).Id, Sum.Value.Value, CurrentDate.SelectedDate.Value, Comment.Text);
+                    ((Account)(Accounts.SelectedItem)).Id, sum, CurrentDate.SelectedDate.Value, Comment.Text);
             }
             else
             {
                 transaction = new OutgoTransaction(((Category)(Categories.SelectedItem)).Id,
-                    ((Account)(Accounts.SelectedItem)).Id, Sum.Value.Value, CurrentDate.SelectedDate.Value, Comment.Text);
+                    ((Account)(Accounts.SelectedItem)).Id, sum, CurrentDate.SelectedDate.Value, Comment.Text);
             }
 
+            transaction?.Commit();
             Close();
         }
 

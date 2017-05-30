@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\App.xaml
-8303012032
+91487660714
 
-33561252080
+382027361448
 172060711024
-Windows\AccountsWindow.xaml;Content\Colors.xaml;MainWindow.xaml;Windows\CategoriesWindow.xaml;Windows\RegularTransactionsWindow.xaml;Windows\RentWindow.xaml;Windows\SingleTransactionWindow.xaml;Views\SurveyView.xaml;
+Windows\AccountsWindow.xaml;Content\Colors.xaml;MainWindow.xaml;Windows\CategoriesWindow.xaml;Windows\FilterWindow.xaml;Windows\RegularTransactionsWindow.xaml;Windows\RentWindow.xaml;Windows\SingleTransactionWindow.xaml;Views\SurveyView.xaml;
 
-False
+True
 

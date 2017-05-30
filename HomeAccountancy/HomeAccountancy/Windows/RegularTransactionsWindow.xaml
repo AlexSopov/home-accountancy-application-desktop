@@ -3,21 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:HomeAccountancy.Converters"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:HomeAccountancy.Windows"
         mc:Ignorable="d"
+        Closing="MetroWindow_Closing"
         BorderThickness="1"
-        ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         GlowBrush="LightGray"
         TitleCaps="False"
+        Icon="../Content/icon.ico"
         Width="600" Height="450" Margin="0" Padding="0"
         ResizeMode="NoResize"
         Title="Регулярні платежі"
         Background="#FAFAFA">
+    <Controls:MetroWindow.Resources>
+        <converter:IntToExecutingStrategyConverter x:Key="IntToExecutingStrategyConverter" />
+        <converter:DateTimeToStringConverter x:Key="DateToStrongConverter" />
+    </Controls:MetroWindow.Resources>
 
     <Border Margin="10">
-        <Grid>
+        <Grid Name="DataPresenter">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="Auto" />
@@ -30,20 +37,27 @@
 
             <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2 0"/>
             <ListBox Grid.Column="0" Name="RegularTransactionsList" 
-                     ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}" 
+                     ItemsSource="{Binding RegularTransactions}" SelectedItem="{Binding SelectedTransaction}" 
                      FontSize="14" BorderBrush="LightGray" BorderThickness="0.5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Path=Name}" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Path=Rent}" HorizontalAlignment="Right"/>
-                            <TextBlock Grid.Column="2" DataContext="{Binding Path=Currency}" Text="{Binding Path=ShortageName}" HorizontalAlignment="Right" Margin="5 0 0 0"/>
+                            <TextBlock Grid.Column="0" Text="{Binding Path=TransactionCategory}" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=Sum}" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Column="2" DataContext="{Binding Path=TransactionCurrency}" Text="{Binding Path=ShortageName}" HorizontalAlignment="Right" Margin="5 0 0 0"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0">Запланована дата:</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" Margin="5 0 0 0"
+                                       Text="{Binding Path=NextExecutinDate, TargetNullValue=0,Converter={StaticResource DateToStrongConverter}}" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -56,14 +70,14 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" Style="{DynamicResource SquareButtonStyle}" 
-                        Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedAccount}" 
+                        Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedTransaction}" 
                         Padding="10 7" Margin="0 0 5 0">Видалити</Button>
                 <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Command="{Binding AddNewCommand}" 
                         Padding="10 7" Margin="5 0 0 0">Створити</Button>
             </Grid>
 
             <Border Margin="5 0 0 0" Grid.Column="2">
-                <Grid DataContext="{Binding SelectedAccount}">
+                <Grid DataContext="{Binding SelectedTransaction}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition />
@@ -75,34 +89,27 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Рахунок</TextBlock>
-                    <ComboBox Grid.Row="0" Grid.Column="1" Margin="5 5 0 5"></ComboBox>
+                    <ComboBox Grid.Row="0" Grid.Column="1" Margin="5 5 0 5" Name="AccountsList" SelectedItem="{Binding TransactionAccount}"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Сума</TextBlock>
-                    <Controls:NumericUpDown Grid.Row="1" Grid.Column="1" Margin="5 5 0 5" HasDecimals="True" Speedup="True"
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Категорія</TextBlock>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="5 5 0 5" Name="CategoriesList" SelectedItem="{Binding TransactionCategory}"></ComboBox>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Сума</TextBlock>
+                    <Controls:NumericUpDown Grid.Row="2" Grid.Column="1" Margin="5 5 0 5" HasDecimals="True" Speedup="True"
                                     Minimum="-1000000" Maximum = "1000000" Interval="10" StringFormat="N2" 
-                                    Value="{Binding StartBalance, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Value="{Binding Sum, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="0 5" VerticalAlignment="Top">Коментар</TextBlock>
-                    <TextBox Grid.Row="3" Grid.Column="1" Margin="5 5 0 5" Height="50" TextWrapping="Wrap" AcceptsReturn="True" 
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="5 5 0 5" TextWrapping="Wrap" AcceptsReturn="True" 
                              Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Від: </TextBlock>
-                    <DatePicker Grid.Row="4" Grid.Column="1" Margin="5 5 0 5"
-                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
-                        Controls:TextBoxHelper.Watermark="Дата від" Name="DateFrom"/>
-
-                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">До:</TextBlock>
-                    <DatePicker Grid.Row="5" Grid.Column="1" Margin="5 5 0 5"
-                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
-                        Controls:TextBoxHelper.Watermark="Дата до" Name="DateTo"/>
-
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Періодичність:</TextBlock>
-                    <ComboBox Grid.Row="6" Grid.Column="1" Margin="5 5 0 5" Name="PeriodType">
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Періодичність:</TextBlock>
+                    <ComboBox Grid.Row="4" Grid.Column="1" Margin="5 5 0 5" Name="PeriodType" 
+                              SelectedIndex="{Binding Strategy, Converter={StaticResource IntToExecutingStrategyConverter}}">
+                        <TextBlock Text="Один раз" />
                         <TextBlock Text="Щодня" />
                         <TextBlock Text="Щомісяця" />
                     </ComboBox>
@@ -110,21 +117,58 @@
                     <TabControl Grid.Row="7" Grid.ColumnSpan="2" Background="#FAFAFA" 
                                 SelectedIndex="{Binding ElementName=PeriodType, Path=SelectedIndex}" Padding="0">
                         <TabItem Visibility="Hidden">
-                            <WrapPanel Orientation="Horizontal">
-                                <CheckBox Margin="0 5 5 0">Понеділок</CheckBox>
-                                <CheckBox Margin="0 5 5 0">Вівторок</CheckBox>
-                                <CheckBox Margin="0 5 5 0">Середа</CheckBox>
-                                <CheckBox Margin="0 5 5 0">Четвер</CheckBox>
-                                <CheckBox Margin="0 5 5 0">П'ятниця</CheckBox>
-                                <CheckBox Margin="0 5 5 0">Субота</CheckBox>
-                                <CheckBox Margin="0 5 5 0">Неділя</CheckBox>
-                            </WrapPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 5 10 0" VerticalAlignment="Center">Дата:</TextBlock>
+                                <DatePicker Grid.Row="0" Grid.Column="1" Margin="0 5"
+                                    DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
+                                    Controls:TextBoxHelper.Watermark="Дата" SelectedDate="{Binding ExecutingDate, UpdateSourceTrigger=LostFocus}"/>
+                            </Grid>
                         </TabItem>
                         <TabItem Visibility="Hidden">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="0 5 5 0" VerticalAlignment="Center">День місяця:</TextBlock>
-                                <ComboBox Grid.Row="6" Grid.Column="1" Margin="5 5 0 5" Name="DayOfMonth">
-                                </ComboBox>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="0 5" VerticalAlignment="Center">Від:</TextBlock>
+                                <DatePicker Grid.Row="4" Grid.Column="1" Margin="0 5"
+                                    DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
+                                    Controls:TextBoxHelper.Watermark="Дата від" SelectedDate="{Binding StartDate, UpdateSourceTrigger=LostFocus}"/>
+
+                                <TextBlock Margin="0 5" VerticalAlignment="Center">До:</TextBlock>
+                                <DatePicker Grid.Row="5" Grid.Column="1" Margin="0 5"
+                                    DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
+                                    Controls:TextBoxHelper.Watermark="Дата до" SelectedDate="{Binding EndDate, UpdateSourceTrigger=LostFocus}"/>
+                                <WrapPanel Orientation="Horizontal">
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsMonday, UpdateSourceTrigger=PropertyChanged}">Понеділок</CheckBox>
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsTuesday, UpdateSourceTrigger=PropertyChanged}">Вівторок</CheckBox>
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsWednesday, UpdateSourceTrigger=PropertyChanged}">Середа</CheckBox>
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsThursday, UpdateSourceTrigger=PropertyChanged}">Четвер</CheckBox>
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsFriday, UpdateSourceTrigger=PropertyChanged}">П'ятниця</CheckBox>
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsSaturday, UpdateSourceTrigger=PropertyChanged}">Субота</CheckBox>
+                                    <CheckBox Margin="0 5 5 0" IsChecked="{Binding IsSunday, UpdateSourceTrigger=PropertyChanged}">Неділя</CheckBox>
+                                </WrapPanel>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Visibility="Hidden">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="0 5" VerticalAlignment="Center">Від:</TextBlock>
+                                    <DatePicker Margin="0 5"
+                                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
+                                        Controls:TextBoxHelper.Watermark="Дата від" SelectedDate="{Binding StartDate, UpdateSourceTrigger=LostFocus}"/>
+
+                                    <TextBlock Margin="0 5" VerticalAlignment="Center">До:</TextBlock>
+                                    <DatePicker Grid.Row="5" Grid.Column="1" Margin="0 5"
+                                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
+                                        Controls:TextBoxHelper.Watermark="Дата до" SelectedDate="{Binding EndDate, UpdateSourceTrigger=LostFocus}"/>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Margin="0 5 5 0" VerticalAlignment="Center">День місяця:</TextBlock>
+                                        <ComboBox Grid.Row="6" Grid.Column="1" Margin="5 5 0 5" Name="DayOfMonth" 
+                                                  SelectedItem="{Binding DayOfMonth}"/>
+                                    </StackPanel>
+                                </StackPanel>
                             </StackPanel>
                         </TabItem>
                     </TabControl>

@@ -7,11 +7,11 @@
         xmlns:local="clr-namespace:HomeAccountancy" 
         mc:Ignorable="d"
         BorderThickness="1"
-        ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         GlowBrush="LightGray"
         TitleCaps="False"
-        Width="300" Margin="0" Padding="0"
+        Icon="../Content/icon.ico"
+        Width="350" Margin="0" Padding="0"
         ResizeMode="NoResize"
         SizeToContent="Height"
         Title="Створення запису"
@@ -50,7 +50,7 @@
 
             <TextBlock Grid.Row="4" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Сума:</TextBlock>
             <Controls:NumericUpDown Grid.Row="4" Grid.Column="1"  Margin="0 0 0 8" HasDecimals="True" Speedup="True"
-                                    Minimum="-1000000" Maximum = "1000000" Interval="10" StringFormat="N2" Name="Sum" />
+                                    Minimum="0" Maximum = "1000000" Interval="10" StringFormat="N2" Name="Sum" />
 
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="0 5 5 8" VerticalAlignment="Center">Коментар:</TextBlock>
             <TextBox Grid.Row="5" Grid.Column="1"  Margin="0 0 0 8" Name="Comment"></TextBox>

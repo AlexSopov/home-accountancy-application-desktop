@@ -1,5 +1,6 @@
-﻿using HomeAccountancy.ViewModels;
-using System;
+﻿using HomeAccountancy.Model;
+using HomeAccountancy.ViewModels;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,16 +12,16 @@ namespace HomeAccountancy
         {
             InitializeComponent();
 
-            DateFrom.SelectedDate = DateTime.Today;
-            DateTo.SelectedDate = DateTime.Today.AddMonths(1);
-
             MainContent.DataContext = new TransactionsViewModel();
+            DataContainer.Items.IsLiveSorting = true;
+            DataContainer.Items.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
+
+            Accounts.ItemsSource = Account.Entities;
         } 
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             new SingleTransactionWindow().ShowDialog();
-
             (MainContent.DataContext as TransactionsViewModel).UpdateRentInfo();
         }
     }

@@ -7,9 +7,9 @@
         xmlns:local="clr-namespace:HomeAccountancy.Windows"
         mc:Ignorable="d"
         BorderThickness="1"
-        ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         GlowBrush="LightGray"
+        Icon="../Content/icon.ico"
         TitleCaps="False"
         Width="550" Height="450" Margin="0" Padding="0"
         ResizeMode="NoResize"
@@ -83,11 +83,11 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 5" VerticalAlignment="Center">Назва категорії</TextBlock>
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5 5 0 5" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5 5 0 5" Text="{Binding Path=Name, UpdateSourceTrigger=LostFocus}" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 5" VerticalAlignment="Top">Опис</TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1" Margin="5 5 0 5" Height="100" TextWrapping="Wrap" AcceptsReturn="True" 
-                             Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding Path=Description, UpdateSourceTrigger=LostFocus}" />
                 </Grid>
             </Border>
 

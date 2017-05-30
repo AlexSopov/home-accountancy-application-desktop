@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
@@ -6,7 +7,7 @@ namespace HomeAccountancy.Model
     [DataContract]
     [KnownType(typeof(OutgoCategory))]
     [KnownType(typeof(IncomeCategory))]
-    abstract class Category : DataEntity<Category>, INotifyPropertyChanged
+    public abstract class Category : DataEntity<Category>, INotifyPropertyChanged, IComparable<Category>
     {
         [DataMember]
         private string _Name;
@@ -39,7 +40,16 @@ namespace HomeAccountancy.Model
             Description = description;
         }
 
-        public abstract bool ValidateSum(double sum);
+        public abstract int GetTransactionSign();
+        public override void Delete()
+        {
+            for (int i = 0; i < Transaction.Entities.Count; i++)
+            {
+                if (Transaction.Entities[i].CategoryId == Id)
+                    Transaction.Entities[i].Delete();
+            }
+            base.Delete();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
@@ -47,10 +57,14 @@ namespace HomeAccountancy.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
-
         public override string ToString()
         {
             return Name;
+        }
+
+        public int CompareTo(Category other)
+        {
+            return _Name.CompareTo(other._Name);
         }
     }
 }

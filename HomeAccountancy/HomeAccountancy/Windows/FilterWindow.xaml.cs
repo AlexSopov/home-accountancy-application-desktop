@@ -1,0 +1,60 @@
+﻿using HomeAccountancy.Model;
+using HomeAccountancy.ViewModels;
+using MahApps.Metro.Controls;
+using System.Collections.Generic;
+
+namespace HomeAccountancy.Windows
+{
+    /// <summary>
+    /// Логика взаимодействия для FilterWindow.xaml
+    /// </summary>
+    public partial class FilterWindow : MetroWindow
+    {
+        bool ProgramaticlyAdd;
+        public FilterWindow()
+        {
+            InitializeComponent();
+
+            AccountsList.ItemsSource = Account.Entities;
+            CategoriesList.ItemsSource = Category.Entities;
+
+            DataPresenter.DataContext = new FilterViewModel();
+            FilterViewModel viewModel = DataPresenter.DataContext as FilterViewModel;
+
+            ProgramaticlyAdd = true;
+            foreach (var item in viewModel.CurrentFilter.EnabledCategories)
+                CategoriesList.SelectedItems.Add(item);
+
+            foreach (var item in viewModel.CurrentFilter.EnabledAccounts)
+                AccountsList.SelectedItems.Add(item);
+            ProgramaticlyAdd = false;
+        }
+
+        private void CategoriesList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ProgramaticlyAdd)
+                return;
+
+            FilterViewModel viewModel = DataPresenter.DataContext as FilterViewModel;
+
+            foreach (var item in e.AddedItems)
+                viewModel.CurrentFilter.EnabledCategories.Add((Category)item);
+
+            foreach (var item in e.RemovedItems)
+                viewModel.CurrentFilter.EnabledCategories.Remove((Category)item);
+        }
+        private void AccountsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ProgramaticlyAdd)
+                return;
+
+            FilterViewModel viewModel = DataPresenter.DataContext as FilterViewModel;
+
+            foreach (var item in e.AddedItems)
+                viewModel.CurrentFilter.EnabledAccounts.Add((Account)item);
+
+            foreach (var item in e.RemovedItems)
+                viewModel.CurrentFilter.EnabledAccounts.Remove((Account)item);
+        }
+    }
+}

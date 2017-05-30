@@ -12,7 +12,8 @@
                       TitleCaps="False"
                       Height="700" Width="1200" 
                       WindowState="Maximized"
-                      Background="{StaticResource MainBackgroudColor}">
+                      Background="{StaticResource MainBackgroudColor}"
+                      Icon="Content/icon.ico">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -22,22 +23,66 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" HorizontalAlignment="Stretch" Padding="5 0" FontSize="12">
-            <MenuItem Header="Файл"></MenuItem>
-            <MenuItem Header="Про програму"/>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Зберегти" />
+                <MenuItem Header="Завантажити" />
+            </MenuItem>
+            <MenuItem Header="Допомога">
+                <MenuItem.Items>
+                    <MenuItem Header="Про програму" />
+                    <MenuItem Header="Інструкція" />
+                </MenuItem.Items>
+            </MenuItem>
+            <MenuItem Header="Вихід" Click="Close_Click"/>
         </Menu>
 
         <Border Grid.Row="1" BorderThickness="0 0.5" BorderBrush="Gray">
-            <ToolBarTray IsLocked="True" Orientation="Horizontal" Background="{StaticResource ResourceKey=LightGray1}">
-                <ToolBar Height="50" VerticalAlignment="Top" Grid.Row="1" FontSize="14" >
-                    <ToggleButton Click="ShowSurveyView_click" Name="ShowSurveyView" Margin="5">Головна</ToggleButton>
-                    <ToggleButton Click="ShowDiagram_Click" Name="ShowDiagramView" Margin="5">Діаграми</ToggleButton>
-                    <Button Click="ShowPlans_Click" Name="ShowPlanView" Margin="5">Планування</Button>
+            <ToolBarTray IsLocked="True" Orientation="Horizontal" Background="{StaticResource LightGray1}">
+                <ToolBar Height="60" VerticalAlignment="Top" Grid.Row="1" FontSize="14" >
+                    <ToggleButton Click="ShowSurveyView_click" Name="ShowSurveyView" Margin="5 0 10 0" IsChecked="True">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/journal_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Журнал"/>
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton Click="ShowDiagram_Click" Name="ShowDiagramView" Margin="0 0 10 0">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/diagram_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Діаграми"/>
+                        </StackPanel>
+                    </ToggleButton>
+                    <Button Click="ShowPlans_Click" Name="ShowPlanView" Margin="0 0 10 0">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/plan_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Планування"/>
+                        </StackPanel>
+                    </Button>
                     <Separator />
-                    <Button Click="Accounts_click" Margin="5">Рахунки</Button>
-                    <Button Click="Categories_Click" Margin="5">Категорії</Button>
-                    <Button Margin="5">Валюти</Button>
+                    <Button Click="Accounts_click" Margin="5 0 10 0">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/account_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Рахунки"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Click="Categories_Click" Margin="0 0 10 0">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/categories_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Категорії"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0 0 10 0">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/rent_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Валюти"/>
+                        </StackPanel>
+                    </Button>
                     <Separator />
-                    <Button Margin="5">Фільтр</Button>
+                    <Button Margin="5 0 10 0" Click="Filter_Click">
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/filter_icon.png" Width="30" Height="30"/>
+                            <TextBlock Text="Фільтр"/>
+                        </StackPanel>
+                    </Button>
                 </ToolBar>
             </ToolBarTray>
         </Border>

@@ -16,6 +16,8 @@ namespace HomeAccountancy
             DataContext = new AccountViewModel();
 
             CurrencyComboBox.ItemsSource = Currency.Entities;
+            if (Currency.Entities.Count > 0)
+                CurrencyComboBox.SelectedIndex = 0;
         }
 
         private void Close_Click(object sender, System.Windows.RoutedEventArgs e)

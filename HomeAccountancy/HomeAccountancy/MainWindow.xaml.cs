@@ -86,5 +86,15 @@ namespace HomeAccountancy
             var selectedSeries = (PieSeries)chartpoint.SeriesView;
             selectedSeries.PushOut = 5;
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Filter_Click(object sender, RoutedEventArgs e)
+        {
+            new FilterWindow().ShowDialog();
+        }
     }
 }

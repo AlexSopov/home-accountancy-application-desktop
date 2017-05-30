@@ -26,17 +26,8 @@
 
         <!--Top controls-->
         <DockPanel Grid.Row="0" Grid.Column="0" Margin="0 0 0 10">
-
-            <TextBox Controls:TextBoxHelper.Watermark="Пошук..." Controls:TextBoxHelper.ClearTextButton="True"
-                     Controls:TextBoxHelper.SelectAllOnFocus="True"
-                     DockPanel.Dock="Right" HorizontalAlignment="Right" Width="175"/>
-            <DatePicker DockPanel.Dock="Left" HorizontalAlignment="Left" Width="150"
-                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
-                        Controls:TextBoxHelper.Watermark="Дата від" Name="DateFrom"/>
-            <TextBlock Text="-" Margin="10 0" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-            <DatePicker DockPanel.Dock="Left" HorizontalAlignment="Left" Width="150"
-                        DisplayDateEnd="2030-01-01" DisplayDateStart="2010-01-01" IsTodayHighlighted="True"
-                        Controls:TextBoxHelper.Watermark="Дата до" Name="DateTo"/>
+            <TextBlock Text="Рахунок:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <ComboBox Width="200" DockPanel.Dock="Left" HorizontalAlignment="Left" Name="Accounts"/>
 
         </DockPanel>
 
@@ -51,13 +42,13 @@
                     </Style>
                 </DataGrid.Style>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Date, Converter={StaticResource DateToStrongConverter}}" Header="Дата" Width="100" />
-                    <DataGridTextColumn Binding="{Binding Path=TransactionAccount}" Header="Рахунок" Width="100" />
+                    <DataGridTextColumn Binding="{Binding Path=Date, Converter={StaticResource DateToStrongConverter}}" 
+                                        Header="Дата" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Path=TransactionAccount.Name}" Header="Рахунок" Width="200" />
                     <DataGridTextColumn Binding="{Binding Path=TransactionCategory}" Header="Категорія" Width="150" />
                     <DataGridTextColumn Binding="{Binding Path=Sum}" Header="Сума" Width="auto" />
-                    <DataGridTextColumn Binding="{Binding Path=Rest}" Header="Залишок на рахунку" Width="auto" />
                     <DataGridTextColumn Binding="{Binding Path=TransactionCurrency}" Header="Валюта" Width="100" />
-                    <DataGridTextColumn Binding="{Binding Path=Description}" Header="Опис"  Width="*" />
+                    <DataGridTextColumn Binding="{Binding Path=Description}" Header="Коментар" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
@@ -68,7 +59,7 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Foreground="White" FontSize="18">Поточний залишок</TextBlock>
                     <TextBlock Name="CurrentRest"  Foreground="White" FontSize="20" FontWeight="Bold"
-                               Text="{Binding CurrentRent, StringFormat={}{0:# ###.00 грн.}}" />
+                               Text="{Binding CurrentRent, StringFormat={}{0:# ###.## грн.}}" />
                 </StackPanel>
             </Border>
 
@@ -78,7 +69,7 @@
                         <StackPanel Orientation="Vertical">
                             <TextBlock Foreground="White" FontSize="18">Прогноз залишку</TextBlock>
                             <TextBlock Foreground="White" FontSize="20" FontWeight="Bold" 
-                                       Text="{Binding ExpectedRent, StringFormat={}{0:# ###.00 грн.}}" />
+                                       Text="{Binding ExpectedRent, StringFormat={}{0:# ###.## грн.}}" />
                         </StackPanel>
                     </Border>
                     <Border Padding="10 5 10 10" Background="White">
@@ -93,10 +84,10 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються витрати</TextBlock>
                             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedOutgo" 
-                                       FontSize="12" Padding="0 2">-1 400 грн.</TextBlock>
+                                       FontSize="12" Padding="0 2">0 грн.</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються доходи</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedIncome" 
-                                       FontSize="12" Padding="0 2">200 грн.</TextBlock>
+                                       FontSize="12" Padding="0 2">0 грн.</TextBlock>
                         </Grid>
                     </Border>
 
@@ -116,7 +107,7 @@
             <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" 
                     Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedTransaction}" >Видалити</Button>
             <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8"
-                    Command="{Binding ChangeCommand}" CommandParameter="{Binding SelectedTransaction}">Змінити</Button>
+                    Command="{Binding ChangeCommand}" CommandParameter="{Binding SelectedTransaction}">Редагувати</Button>
             <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Click="Add_Click" Padding="20 8">Додати</Button>
         </Grid>
         

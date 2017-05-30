@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace HomeAccountancy.Model
 {
     [DataContract]
-    class Account : DataEntity<Account>, INotifyPropertyChanged
+    public class Account : DataEntity<Account>, INotifyPropertyChanged, IComparable<Account>
     {
         [DataMember]
         public string _Name;
@@ -91,6 +91,15 @@ namespace HomeAccountancy.Model
                 return transactions;
             }
         }
+        public override void Delete()
+        {
+            for (int i = 0; i < Transaction.Entities.Count; i++)
+            {
+                if (Transaction.Entities[i].FromAccountId == Id)
+                    Transaction.Entities.Remove(Transaction.Entities[i]);
+            }
+            base.Delete();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
@@ -100,7 +109,12 @@ namespace HomeAccountancy.Model
 
         public override string ToString()
         {
-            return Name;
+            return string.Format("{0} ({1} {2})", Name, Rent, Currency);
+        }
+
+        public int CompareTo(Account other)
+        {
+            return _Name.CompareTo(other._Name);
         }
     }
 }

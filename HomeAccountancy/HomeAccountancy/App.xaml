@@ -16,6 +16,7 @@
 
                 <ResourceDictionary Source="Content/Colors.xaml" />
 
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

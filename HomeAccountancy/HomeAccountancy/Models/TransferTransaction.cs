@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace HomeAccountancy.Model
 {
     [DataContract]
-    class TransferTransaction : Transaction
+    public class TransferTransaction : Transaction
     {
         [DataMember]
         public Guid ToAccontId { get; private set; }
@@ -15,9 +15,14 @@ namespace HomeAccountancy.Model
             ToAccontId = toAccountId;
         }
 
+        public override void Commit()
+        {
+            //TODO Add 2 transactions
+            base.Commit();
+        }
         public override bool ValidateSum()
         {
-            return true;
+            throw new NotImplementedException();
         }
     }
 }

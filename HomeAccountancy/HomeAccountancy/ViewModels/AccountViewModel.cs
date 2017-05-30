@@ -37,8 +37,10 @@ namespace HomeAccountancy.ViewModels
                 return _AddNewCommand ??
                   (_AddNewCommand = new RelayCommand(commandAgrument =>
                   {
-                      Account account = new Account("Новий рахунок", Guid.Empty, 0);
+                      Guid currencyId = Currency.Entities.Count > 0 ? Currency.Entities[0].Id : Guid.Empty;
+                      Account account = new Account("Новий рахунок", currencyId, 0);
                       SelectedAccount = account;
+                      account.Commit();
                   }));
             }
         }
@@ -50,14 +52,7 @@ namespace HomeAccountancy.ViewModels
                   (_DeleteCommand = new RelayCommand(commandAgrument =>
                   {
                       Account account = commandAgrument as Account;
-                      for (int i = 0; i < Transaction.Entities.Count; i++)
-                      {
-                          if (Transaction.Entities[i].FromAccountId == account.Id)
-                              Transaction.Entities.Remove(Transaction.Entities[i]);
-                      }
-
-                      if (account != null)
-                          Accounts.Remove(account);
+                      account.Delete();
                   },
                  (commandAgrument) => Accounts.Count > 0 && SelectedAccount != null));
             }

@@ -4,13 +4,14 @@ using System.Runtime.Serialization;
 namespace HomeAccountancy.Model
 {
     [DataContract]
-    class Rate : DataEntity<Rate>
+    public class Rate : DataEntity<Rate>
     {
         [DataMember]
         public Guid CurrencyFromId { get; private set; }
 
         [DataMember]
         public Guid CurrencyToId { get; private set; }
+
         public double RateFromTo { get { throw new NotImplementedException(); } }
         public double RateToFrom { get { throw new NotImplementedException(); } }
 

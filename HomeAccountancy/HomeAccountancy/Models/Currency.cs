@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace HomeAccountancy.Model
 {
     [DataContract]
-    class Currency : DataEntity<Currency>
+    public class Currency : DataEntity<Currency>
     {
         [DataMember]
         public string FullName { get; private set; }

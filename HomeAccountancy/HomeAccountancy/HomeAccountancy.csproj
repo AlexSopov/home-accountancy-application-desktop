@@ -73,10 +73,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\IntToExecutingStrategyConverter.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\RegularTransaction.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModel.cs" />
+    <Compile Include="ViewModels\FilterViewModel.cs" />
+    <Compile Include="ViewModels\RegularTransactionViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Windows\AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
@@ -95,6 +99,9 @@
     <Compile Include="Models\TransferTransaction.cs" />
     <Compile Include="Windows\CategoriesWindow.xaml.cs">
       <DependentUpon>CategoriesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FilterWindow.xaml.cs">
+      <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\RegularTransactionsWindow.xaml.cs">
       <DependentUpon>RegularTransactionsWindow.xaml</DependentUpon>
@@ -130,6 +137,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\CategoriesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,7 +191,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Content\account_icon.png" />
+    <Resource Include="Content\categories_icon.png" />
+    <Resource Include="Content\diagram_icon.png" />
+    <Resource Include="Content\filter_icon.png" />
+    <Resource Include="Content\plan_icon.png" />
+    <Resource Include="Content\rent_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\journal_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
