@@ -10,7 +10,7 @@
   <Class Name="HomeAccountancy.Model.Account">
     <Position X="3" Y="4.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAgAAAAAEKAAAIAQAmCEAAAAAAAAAAAAABAA=</HashCode>
+      <HashCode>AACAAAAAAgAAAAQEKAAAIAQAmCEAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Models\Account.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -18,7 +18,7 @@
   <Class Name="HomeAccountancy.Model.Category">
     <Position X="5.25" Y="4.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAEIAAAIAQAgAEAAAAEAACAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQEIAAAIAQAgAEAAAAEAACAAAAAAAA=</HashCode>
       <FileName>Models\Category.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -43,41 +43,27 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAgAgAAIAAAABAAgCEoAAgFBAAAAACAADQ=</HashCode>
+      <HashCode>AAAAAAAAAEAgAgQAIAAAABAAgCEoAAgFBAAAAACAADQ=</HashCode>
       <FileName>Models\Transaction.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="HomeAccountancy.Models.RegularTransaction">
-    <Position X="14.25" Y="4.5" Width="2" />
-    <NestedTypes>
-      <Enum Name="HomeAccountancy.Models.RegularTransaction.Status" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Models\RegularTransaction.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAAAEAQAAABAEAAAAAAAEAAgAAAAAAAAAAAAAEAAAAA=</HashCode>
-      <FileName>Models\RegularTransaction.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="HomeAccountancy.Model.IncomeTransaction">
-    <Position X="10.25" Y="9.5" Width="1.75" />
+    <Position X="10.5" Y="9.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\IncomeTransaction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomeAccountancy.Model.OutgoTransaction">
-    <Position X="12.5" Y="9.5" Width="1.75" />
+    <Position X="13" Y="9.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\OutgoTransaction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomeAccountancy.Model.TransferTransaction">
-    <Position X="14.75" Y="9.5" Width="1.75" />
+    <Position X="15.5" Y="9.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\TransferTransaction.cs</FileName>
@@ -96,6 +82,25 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Models\OutgoCategory.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="HomeAccountancy.Model.RegularTransaction">
+    <Position X="18" Y="9.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="HomeAccountancy.Model.RegularTransaction.ExecutingStrategy">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\RegularTransaction.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CKACBGSAIGkAAAQICAAAgAAgIDAgMAAAiAAEgNADAAg=</HashCode>
+      <FileName>Models\RegularTransaction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -13,6 +13,7 @@ namespace HomeAccountancy
             InitializeComponent();
 
             MainContent.DataContext = new TransactionsViewModel();
+
             DataContainer.Items.IsLiveSorting = true;
             DataContainer.Items.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
 
@@ -22,6 +23,11 @@ namespace HomeAccountancy
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             new SingleTransactionWindow().ShowDialog();
+            (MainContent.DataContext as TransactionsViewModel).UpdateRentInfo();
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
             (MainContent.DataContext as TransactionsViewModel).UpdateRentInfo();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using HomeAccountancy.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace HomeAccountancy.Models
@@ -13,6 +14,8 @@ namespace HomeAccountancy.Models
         private double _MinSum, _MaxSum;
         public List<Category> EnabledCategories;
         public List<Account> EnabledAccounts;
+
+        public ObservableCollection<Transaction> FilteredTransacrions { get; set; }
 
         public bool IsDatesFilter
         {
@@ -90,6 +93,9 @@ namespace HomeAccountancy.Models
 
         private Filter()
         {
+            FilteredTransacrions = new ObservableCollection<Transaction>();
+            UpdateFilteredTransactions();
+
             _IsDatesFilter = false;
             _IsSumFilter = false;
             _IsAccountFilter = false;
@@ -100,7 +106,10 @@ namespace HomeAccountancy.Models
 
             EnabledCategories = new List<Category>();
             EnabledAccounts = new List<Account>();
+
+            Transaction.Entities.CollectionChanged += (sender, e) => UpdateFilteredTransactions();
         }
+
         public static Filter GetInstance()
         {
             if (Instance == null)
@@ -110,10 +119,45 @@ namespace HomeAccountancy.Models
             return Instance;
         }
 
+        public List<Transaction> GetFilteredTransacrions()
+        {
+            List<Transaction> filteredTransactions = new List<Transaction>();
+            foreach (Transaction transaction in Transaction.Entities)
+            {
+                if (!(transaction is IncomeTransaction) && !(transaction is OutgoTransaction))
+                    continue;
+
+                if (IsDatesFilter && (transaction.Date < FromDate || transaction.Date > ToDate))
+                    continue;
+
+                if (IsSumFilter && (transaction.Sum < MinSum || transaction.Sum > MaxSum))
+                    continue;
+
+                if (IsCategoryFilter && !EnabledCategories.Contains(Category.GetById(transaction.CategoryId)))
+                    continue;
+
+                if (IsAccountFilter && !EnabledAccounts.Contains(Account.GetById(transaction.FromAccountId)))
+                    continue;
+
+                filteredTransactions.Add(transaction);
+            }
+
+            return filteredTransactions;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler FilterChanged;
         public void OnPropertyChanged(string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+            FilterChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void UpdateFilteredTransactions()
+        {
+            FilteredTransacrions.Clear();
+            foreach (var trans in GetFilteredTransacrions())
+                FilteredTransacrions.Add(trans);
         }
     }
 }

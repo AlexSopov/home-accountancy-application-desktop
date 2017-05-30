@@ -38,3 +38,4 @@ D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccounta
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.pdb
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Windows\FilterWindow.g.cs
 D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\Windows\FilterWindow.baml
+D:\Studying\II_Cource\IV_Semester\CourceWork\HomeAccountancyDesktop\HomeAccountancy\HomeAccountancy\obj\Debug\HomeAccountancy.csprojResolveAssemblyReference.cache

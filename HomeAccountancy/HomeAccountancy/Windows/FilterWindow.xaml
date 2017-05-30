@@ -16,7 +16,15 @@
         Title="Фільтр"
         Background="#FAFAFA">
     <Grid Name="DataPresenter">
-        <TabControl TabStripPlacement="Left" Controls:TabControlHelper.Underlined="TabPanel" DataContext="{Binding CurrentFilter}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.ColumnSpan="2" TabStripPlacement="Left" Controls:TabControlHelper.Underlined="TabPanel" DataContext="{Binding CurrentFilter}" >
             <TabItem Header="Дата запису" Controls:ControlsHelper.HeaderFontSize="16">
                 <Border Padding="10">
                     <Grid>
@@ -104,7 +112,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <CheckBox Grid.Row="0" Name="AccountFilterEnabled"
-                                  IsChecked="{Binding IsAccountFilter}">Фільтрувати за категорією платежу</CheckBox>
+                                  IsChecked="{Binding IsAccountFilter}">Фільтрувати за рахунком платежу</CheckBox>
                         <ListView Grid.Row="1" Name="AccountsList" IsEnabled="{Binding ElementName=AccountFilterEnabled, Path=IsChecked}"
                                   Margin="10 5 0 0" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="AccountsList_SelectionChanged">
                             <ListView.ItemTemplate>
@@ -120,5 +128,9 @@
                 </Border>
             </TabItem>
         </TabControl>
+        <Button Grid.Row="2" Grid.Column="1" Margin="10" Style="{StaticResource AccentedSquareButtonStyle}" 
+                Click="ExecuteFilter_Click" Padding="10 4" Width="150" HorizontalAlignment="Right">Примінити фільтр</Button>
+        <Button Grid.Row="2" Grid.Column="0" Style="{DynamicResource SquareButtonStyle}" Margin="10" Padding="10 4" Width="150"
+                    HorizontalAlignment="Left" Click="UnExecuteFilter">Очистити фільтр</Button>
     </Grid>
 </Controls:MetroWindow>

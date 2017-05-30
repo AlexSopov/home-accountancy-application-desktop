@@ -1,7 +1,7 @@
 ﻿using HomeAccountancy.Model;
+using HomeAccountancy.Models;
 using HomeAccountancy.ViewModels;
 using MahApps.Metro.Controls;
-using System.Collections.Generic;
 
 namespace HomeAccountancy.Windows
 {
@@ -55,6 +55,23 @@ namespace HomeAccountancy.Windows
 
             foreach (var item in e.RemovedItems)
                 viewModel.CurrentFilter.EnabledAccounts.Remove((Account)item);
+        }
+
+        private void UnExecuteFilter(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Filter filter = Filter.GetInstance();
+            filter.IsCategoryFilter = false;
+            filter.IsDatesFilter = false;
+            filter.IsSumFilter = false;
+
+            filter.UpdateFilteredTransactions();
+
+        }
+
+        private void ExecuteFilter_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Filter.GetInstance().UpdateFilteredTransactions();
+            Close();
         }
     }
 }

@@ -27,7 +27,8 @@
         <!--Top controls-->
         <DockPanel Grid.Row="0" Grid.Column="0" Margin="0 0 0 10">
             <TextBlock Text="Рахунок:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-            <ComboBox Width="200" DockPanel.Dock="Left" HorizontalAlignment="Left" Name="Accounts"/>
+            <ComboBox Width="200" DockPanel.Dock="Left" HorizontalAlignment="Left" Name="Accounts" Margin="10 0 0 0"
+                      SelectedItem="{Binding SelectedAccount}"/>
 
         </DockPanel>
 
@@ -35,7 +36,7 @@
         <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
             <DataGrid Name="DataContainer" FontSize="12" AutoGenerateColumns="False" 
                       ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedTransaction}" GridLinesVisibility="Horizontal"
-                      IsReadOnly="True">
+                      IsReadOnly="True" VirtualizingPanel.CacheLength="1" VirtualizingPanel.CacheLengthUnit="Page">
                 <DataGrid.Style>
                     <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
                         <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
@@ -55,21 +56,32 @@
 
         <!--Right info-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-            <Border Margin="5 0 0 20" Background="#2195F2" Padding="5 10 5 10" BorderThickness="1" BorderBrush="LightGray">
+            <Border Margin="5 0 0 20" Background="{Binding CurrentRentColor}" Padding="5 10 5 10" BorderThickness="1" BorderBrush="LightGray">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Foreground="White" FontSize="18">Поточний залишок</TextBlock>
                     <TextBlock Name="CurrentRest"  Foreground="White" FontSize="20" FontWeight="Bold"
-                               Text="{Binding CurrentRent, StringFormat={}{0:# ###.## грн.}}" />
+                               Text="{Binding CurrentRent, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}" />
                 </StackPanel>
             </Border>
 
             <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="LightGray">
                 <StackPanel Orientation="Vertical">
-                    <Border Padding="10 5 10 10" Background="#F34336">
+                    <Border Padding="5 10 0 5" Background="{Binding ExpectedRentColor}">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Foreground="White" FontSize="18">Прогноз залишку</TextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="White" FontSize="18" Margin="0 0 5 0">Прогноз залишку</TextBlock>
+                                <Button Grid.Column="1" Click="Refresh_Click" Padding="0" Background="Transparent" Margin="0 0 5 0"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False">
+                                    <Image Source="../Content/refresh.png" Width="20" Height="20"/>
+                                </Button>
+                            </Grid>
+                            <TextBlock Foreground="White" FontSize="12">на кінець місяця</TextBlock>
                             <TextBlock Foreground="White" FontSize="20" FontWeight="Bold" 
-                                       Text="{Binding ExpectedRent, StringFormat={}{0:# ###.## грн.}}" />
+                                       Text="{Binding ExpectedRent, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}" />
                         </StackPanel>
                     </Border>
                     <Border Padding="10 5 10 10" Background="White">
@@ -84,10 +96,10 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються витрати</TextBlock>
                             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedOutgo" 
-                                       FontSize="12" Padding="0 2">0 грн.</TextBlock>
+                                       FontSize="12" Padding="0 2" Text="{Binding ExOuntgoes, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}" />
                             <TextBlock Grid.Row="1" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються доходи</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedIncome" 
-                                       FontSize="12" Padding="0 2">0 грн.</TextBlock>
+                                       FontSize="12" Padding="0 2" Text="{Binding ExIncomes, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}"/>
                         </Grid>
                     </Border>
 
@@ -108,7 +120,7 @@
                     Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedTransaction}" >Видалити</Button>
             <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8"
                     Command="{Binding ChangeCommand}" CommandParameter="{Binding SelectedTransaction}">Редагувати</Button>
-            <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Click="Add_Click" Padding="20 8">Додати</Button>
+            <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Click="Add_Click" Padding="20 8">Додати запис</Button>
         </Grid>
         
     </Grid>

@@ -1,10 +1,13 @@
-﻿using HomeAccountancy.Model;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace HomeAccountancy.Model
 {
+
+    /// <summary>
+    /// Клас транзацкції (платежу)
+    /// </summary>
     [DataContract]
     [KnownType(typeof(IncomeTransaction))]
     [KnownType(typeof(OutgoTransaction))]
@@ -12,23 +15,40 @@ namespace HomeAccountancy.Model
     [KnownType(typeof(RegularTransaction))]
     public abstract class Transaction : DataEntity<Transaction>, INotifyPropertyChanged, IComparable<Transaction>
     {
+        /// <summary>
+        /// Id Категорії платежу
+        /// </summary>
         [DataMember]
         private Guid _CategoryId;
 
+        /// <summary>
+        /// Id Аккаунту платежу
+        /// </summary>
         [DataMember]
         private Guid _FromAccountId;
 
+        /// <summary>
+        /// Сума платежу
+        /// </summary>
         [DataMember]
         private double _Sum;
 
+        /// <summary>
+        /// Опис платежу
+        /// </summary>
         [DataMember]
         private string _Description;
 
+        /// <summary>
+        /// Дата створення платежу
+        /// </summary>
         [DataMember]
         private DateTime _Date;
 
         private double _Rest;
 
+        // Реалізація аксесорів доступу до полів даних
+        // При зміні даних - повідомляє про це, генеруючи подію PropertyChanged
         public Guid CategoryId
         {
             get { return _CategoryId; }
@@ -76,8 +96,19 @@ namespace HomeAccountancy.Model
             set { _Rest = value; OnPropertyChanged("Rest"); }
         }
 
+        /// <summary>
+        /// Категорія платежу
+        /// </summary>
         private Category _TransactionCategory;
+
+        /// <summary>
+        /// Рахунок платежу
+        /// </summary>
         private Account _TransactionAccount;
+
+        /// <summary>
+        /// Валюта платежу
+        /// </summary>
         private Currency _TransactionCurrency;
 
         public Category TransactionCategory
@@ -127,6 +158,14 @@ namespace HomeAccountancy.Model
             }
         }
 
+        /// <summary>
+        /// Конструктор класу
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="fromAccountId"></param>
+        /// <param name="date"></param>
+        /// <param name="sum"></param>
+        /// <param name="description"></param>
         public Transaction(Guid categoryId, Guid fromAccountId, DateTime date, double sum, string description) : base()
         {
             _CategoryId = categoryId;
@@ -138,12 +177,21 @@ namespace HomeAccountancy.Model
 
         public abstract bool ValidateSum();
 
+
+        /// <summary>
+        /// Подія зміни параметру (INotifyPropertyChanged)
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
+        /// <summary>
+        /// Порівняння двох платежів (для сортування)
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(Transaction other)
         {
             return _Date.CompareTo(other._Date);

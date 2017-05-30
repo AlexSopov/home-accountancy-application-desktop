@@ -4,6 +4,7 @@ using HomeAccountancy.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 
 namespace HomeAccountancy
@@ -41,7 +42,12 @@ namespace HomeAccountancy
                 Application.Current.Shutdown();*/
 
             //Currency currency = new Currency("Українська гривня", "грн.");
-           // Category category = new OutgoCategory("Витрати", "");
+            //Currency currency2 = new Currency("Російський рубль", "руб.");
+            //Currency currency3 = new Currency("Долар США", "$");
+            //currency.Commit();
+            //currency2.Commit();
+            //currency3.Commit();
+            // Category category = new OutgoCategory("Витрати", "");
             //Account acc = new Account("Готівка", currency.Id, 0);
 
             DataEntity<Account>.SerializeEntities();

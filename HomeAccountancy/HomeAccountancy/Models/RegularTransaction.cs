@@ -193,14 +193,96 @@ namespace HomeAccountancy.Model
             ExecuteToToday();
             ValidateActivity();
         }
-        
+        public static void  GetRegularSumToAccount(Account account, DateTime toDateTime, out double incomes, out double outgoes)
+        {
+            // TODO Refactor!!!
+            double incomesSum = 0, outgoesSum = 0;
+            if (account == null)
+            {
+                incomes = 0;
+                outgoes = 0;
+                return;
+            }
+
+            foreach (var transaction in Entities)
+            {
+                if (!(transaction is RegularTransaction))
+                    continue;
+
+                RegularTransaction regularTransaction = (RegularTransaction)transaction;
+                if (regularTransaction.FromAccountId != account.Id)
+                    continue;
+
+                DateTime last = regularTransaction.LastExecuteDayDate.AddDays(1);
+                while (last <= toDateTime)
+                {
+                    switch (regularTransaction.Strategy)
+                    {
+                        case (ExecutingStrategy.Once):
+                            if (last == regularTransaction.ExecutingDate)
+                            {
+                                if (Category.GetById(regularTransaction.CategoryId) is IncomeCategory)
+                                    incomesSum += regularTransaction.Sum;
+                                else
+                                    outgoesSum += regularTransaction.Sum;
+
+                                break;
+                            }
+                            break;
+                        case (ExecutingStrategy.MultyDay):
+                            DayOfWeek dayofWeek = DateTime.Today.DayOfWeek;
+                            if (regularTransaction.IsMonday == false && regularTransaction.IsTuesday == false && regularTransaction.IsWednesday == false && regularTransaction.IsThursday == false && regularTransaction.IsFriday == false && regularTransaction.IsSaturday == false && regularTransaction.IsSunday == false)
+                                break;
+
+
+                            if ((regularTransaction.IsMonday && dayofWeek == DayOfWeek.Monday) ||
+                                (regularTransaction.IsTuesday && dayofWeek == DayOfWeek.Tuesday) ||
+                                (regularTransaction.IsWednesday && dayofWeek == DayOfWeek.Wednesday) ||
+                                (regularTransaction.IsThursday && dayofWeek == DayOfWeek.Thursday) ||
+                                (regularTransaction.IsFriday && dayofWeek == DayOfWeek.Friday) ||
+                                (regularTransaction.IsSaturday && dayofWeek == DayOfWeek.Saturday) ||
+                                (regularTransaction.IsSunday && dayofWeek == DayOfWeek.Sunday))
+                            {
+                                if (Category.GetById(regularTransaction.CategoryId) is IncomeCategory)
+                                    incomesSum += regularTransaction.Sum;
+                                else
+                                    outgoesSum += regularTransaction.Sum;
+                            }
+                            break;
+                        case (ExecutingStrategy.MultyMonth):
+                            if (last.Day == regularTransaction.DayOfMonth)
+                            {
+                                if (Category.GetById(regularTransaction.CategoryId) is IncomeCategory)
+                                    incomesSum += regularTransaction.Sum;
+                                else
+                                    outgoesSum += regularTransaction.Sum;
+                            }
+
+                            if (DateTime.DaysInMonth(last.Year, last.Month) < regularTransaction.DayOfMonth &&
+                                last.Day == DateTime.DaysInMonth(last.Year, last.Month))
+                                if (Category.GetById(regularTransaction.CategoryId) is IncomeCategory)
+                                    incomesSum += regularTransaction.Sum;
+                                else
+                                    outgoesSum += regularTransaction.Sum;
+                            break;
+                    }
+                    last = last.AddDays(1);
+                }              
+            }
+
+            incomes = incomesSum;
+            outgoes = outgoesSum;
+        }
+
         private void ExecuteToToday()
         {
             if (DateTime.Today <= LastExecuteDayDate)
                 return;
 
-            while (LastExecuteDayDate <= DateTime.Today)
+            while (LastExecuteDayDate < DateTime.Today)
             {
+                LastExecuteDayDate = LastExecuteDayDate.AddDays(1);
+
                 switch (Strategy)
                 {
                     case (ExecutingStrategy.Once):
@@ -218,7 +300,6 @@ namespace HomeAccountancy.Model
                         break;
                 }
 
-                LastExecuteDayDate = LastExecuteDayDate.AddDays(1);
                 if (!ValidateActivity())
                 {
                     Delete();
@@ -246,7 +327,7 @@ namespace HomeAccountancy.Model
         }
         private void ExecuteMultyDay(DateTime executingDate)
         {
-            if (DateTime.Today <= LastExecuteDayDate)
+            if (executingDate < StartDate || executingDate > EndDate)
                 return;
 
             DayOfWeek dayofWeek = DateTime.Today.DayOfWeek;
@@ -267,7 +348,7 @@ namespace HomeAccountancy.Model
         }
         private void ExecuteMultyMonth(DateTime executingDate)
         {
-            if (DateTime.Today <= LastExecuteDayDate)
+            if (executingDate < StartDate || executingDate > EndDate)
                 return;
 
             if (executingDate.Day == DayOfMonth)
