@@ -1,6 +1,7 @@
 ﻿using HomeAccountancy.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace HomeAccountancy.ViewModels
 {
@@ -48,15 +49,18 @@ namespace HomeAccountancy.ViewModels
                 return _DeleteCommand ??
                   (_DeleteCommand = new RelayCommand(commandAgrument =>
                   {
-                      Category category = commandAgrument as Category;
-
-                      if (category != null)
+                      if (MessageBox.Show("Ви дійсно бажаєте видалити категорію? Всі записи категорії буде видалено.",
+                          "Підтвердження дії", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                       {
-                          if (category is IncomeCategory)
-                              IncomeCategories.Remove(category);
-                          else
-                              OutgoCategories.Remove(category);
-                          category.Delete();
+                          Category category = commandAgrument as Category;
+                          if (category != null)
+                          {
+                              if (category is IncomeCategory)
+                                  IncomeCategories.Remove(category);
+                              else
+                                  OutgoCategories.Remove(category);
+                              category.Delete();
+                          }
                       }
                   },
                  (commandAgrument) =>

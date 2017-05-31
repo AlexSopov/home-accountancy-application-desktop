@@ -59,8 +59,16 @@
             <Border Margin="5 0 0 20" Background="{Binding CurrentRentColor}" Padding="5 10 5 10" BorderThickness="1" BorderBrush="LightGray">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Foreground="White" FontSize="18">Поточний залишок</TextBlock>
-                    <TextBlock Name="CurrentRest"  Foreground="White" FontSize="20" FontWeight="Bold"
-                               Text="{Binding CurrentRent, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Name="CurrentRest"  Foreground="White" FontSize="20" FontWeight="Bold"
+                               Text="{Binding CurrentRent, StringFormat={}{0:# ###.##; -# ###.##; 0}}" />
+                        <TextBlock Grid.Column="1" Foreground="White" FontSize="20" FontWeight="Bold" Margin="5 0 0 0"
+                               Text="{Binding SelectedAccount.Currency}" />
+                    </Grid>
                 </StackPanel>
             </Border>
 
@@ -79,9 +87,17 @@
                                     <Image Source="../Content/refresh.png" Width="20" Height="20"/>
                                 </Button>
                             </Grid>
-                            <TextBlock Foreground="White" FontSize="12">на кінець місяця</TextBlock>
-                            <TextBlock Foreground="White" FontSize="20" FontWeight="Bold" 
-                                       Text="{Binding ExpectedRent, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}" />
+                            <TextBlock Foreground="White" FontSize="12" VerticalAlignment="Top">на кінець місяця</TextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="White" FontSize="20" FontWeight="Bold"
+                                    Text="{Binding ExpectedRent, StringFormat={}{0:# ###.##; -# ###.##; 0}}" />
+                                <TextBlock Grid.Column="1" Foreground="White" FontSize="20" FontWeight="Bold" Margin="5 0 0 0"
+                                    Text="{Binding SelectedAccount.Currency}" />
+                            </Grid>
                         </StackPanel>
                     </Border>
                     <Border Padding="10 5 10 10" Background="White">
@@ -93,13 +109,19 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються витрати</TextBlock>
                             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedOutgo" 
-                                       FontSize="12" Padding="0 2" Text="{Binding ExOuntgoes, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}" />
+                                       FontSize="12" Padding="0 2" Text="{Binding ExOuntgoes, StringFormat={}{0:# ###.##;-# ###.##; 0}}" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0"
+                                    Text="{Binding SelectedAccount.Currency}" />
                             <TextBlock Grid.Row="1" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються доходи</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedIncome" 
-                                       FontSize="12" Padding="0 2" Text="{Binding ExIncomes, StringFormat={}{0:# ###.## грн.;-# ###.## грн.;0 грн.}}"/>
+                                       FontSize="12" Padding="0 2" Text="{Binding ExIncomes, StringFormat={}{0:# ###.##;-# ###.##;0}}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0"
+                                    Text="{Binding SelectedAccount.Currency}" />
                         </Grid>
                     </Border>
 

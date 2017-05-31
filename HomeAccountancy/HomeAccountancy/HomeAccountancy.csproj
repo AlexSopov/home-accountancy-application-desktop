@@ -80,6 +80,7 @@
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModel.cs" />
     <Compile Include="ViewModels\FilterViewModel.cs" />
+    <Compile Include="ViewModels\RateViewModel.cs" />
     <Compile Include="ViewModels\RegularTransactionViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Windows\AccountsWindow.xaml.cs">
@@ -207,6 +208,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Windows\SplashScreen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

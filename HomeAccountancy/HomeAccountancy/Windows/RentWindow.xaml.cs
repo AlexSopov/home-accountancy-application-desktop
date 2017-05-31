@@ -1,15 +1,15 @@
-﻿using MahApps.Metro.Controls;
+﻿using HomeAccountancy.ViewModels;
+using MahApps.Metro.Controls;
 
 namespace HomeAccountancy.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для RentWindow.xaml
-    /// </summary>
     public partial class RentWindow : MetroWindow
     {
         public RentWindow()
         {
             InitializeComponent();
+
+            DataPresenter.DataContext = new RateViewModel();
         }
     }
 }

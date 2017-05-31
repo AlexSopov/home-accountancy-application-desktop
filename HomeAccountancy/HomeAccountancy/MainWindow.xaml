@@ -13,6 +13,7 @@
                       Height="700" Width="1200" 
                       WindowState="Maximized"
                       Background="{StaticResource MainBackgroudColor}"
+                      KeyDown="OnKeyDown"
                       Icon="Content/icon.ico">
     
     <Grid>
@@ -24,8 +25,7 @@
 
         <Menu Grid.Row="0" HorizontalAlignment="Stretch" Padding="5 0" FontSize="12">
             <MenuItem Header="Файл">
-                <MenuItem Header="Зберегти" />
-                <MenuItem Header="Завантажити" />
+                <MenuItem Header="Зберегти" InputGestureText="Ctrl + S"/>
             </MenuItem>
             <MenuItem Header="Допомога">
                 <MenuItem.Items>
@@ -70,7 +70,7 @@
                             <TextBlock Text="Категорії"/>
                         </StackPanel>
                     </Button>
-                    <Button Margin="0 0 10 0">
+                    <Button Margin="0 0 10 0" Click="ShowRate_Click">
                         <StackPanel Orientation="Vertical">
                             <Image Source="Content/rent_icon.png" Width="30" Height="30"/>
                             <TextBlock Text="Валюти"/>

@@ -6,6 +6,7 @@ using LiveCharts.Wpf;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
+using System.Windows.Input;
 
 namespace HomeAccountancy
 {
@@ -35,7 +36,7 @@ namespace HomeAccountancy
             };
 
             MessageDialogResult result = await this.ShowMessageAsync("Завершення роботи",
-                "Ви дійсно бажаєте завершити роботу програми?",
+                "Ви дійсно бажаєте завершити роботу програми? Всі незбережені дані буде втрачено.",
                 MessageDialogStyle.AffirmativeAndNegative, exitDialog);
 
             if (result == MessageDialogResult.Affirmative)
@@ -47,14 +48,14 @@ namespace HomeAccountancy
             //currency.Commit();
             //currency2.Commit();
             //currency3.Commit();
-            // Category category = new OutgoCategory("Витрати", "");
-            //Account acc = new Account("Готівка", currency.Id, 0);
 
             DataEntity<Account>.SerializeEntities();
             DataEntity<Category>.SerializeEntities();
             DataEntity<Currency>.SerializeEntities();
             DataEntity<Rate>.SerializeEntities();
             DataEntity<Transaction>.SerializeEntities();
+            //Category category = new OutgoCategory("Витрати", "");
+            //Account acc = new Account("Готівка", currency.Id, 0);
         }
 
         private void ShowSurveyView_click(object sender, RoutedEventArgs e)
@@ -62,6 +63,7 @@ namespace HomeAccountancy
             MainTabControl.SelectedIndex = 0;
             ShowDiagramView.IsChecked = false;
         }
+
         private void ShowPlans_Click(object sender, RoutedEventArgs e)
         {
             new RegularTransactionsWindow().ShowDialog();
@@ -81,6 +83,18 @@ namespace HomeAccountancy
         {
             new CategoriesWindow().ShowDialog();
         }
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void Filter_Click(object sender, RoutedEventArgs e)
+        {
+            new FilterWindow().ShowDialog();
+        }
+        private void ShowRate_Click(object sender, RoutedEventArgs e)
+        {
+            new RentWindow().ShowDialog();
+        }
 
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {
@@ -93,14 +107,16 @@ namespace HomeAccountancy
             selectedSeries.PushOut = 5;
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            Close();
-        }
-
-        private void Filter_Click(object sender, RoutedEventArgs e)
-        {
-            new FilterWindow().ShowDialog();
+            if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                DataEntity<Account>.SerializeEntities();
+                DataEntity<Category>.SerializeEntities();
+                DataEntity<Currency>.SerializeEntities();
+                DataEntity<Rate>.SerializeEntities();
+                DataEntity<Transaction>.SerializeEntities();
+            }
         }
     }
 }

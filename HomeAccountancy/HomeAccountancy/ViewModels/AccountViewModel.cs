@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace HomeAccountancy.ViewModels
 {
@@ -51,8 +52,12 @@ namespace HomeAccountancy.ViewModels
                 return _DeleteCommand ??
                   (_DeleteCommand = new RelayCommand(commandAgrument =>
                   {
-                      Account account = commandAgrument as Account;
-                      account.Delete();
+                      if (MessageBox.Show("Ви дійсно бажаєте видалити рахунок? Всі записи рахунку буде видалено.",
+                          "Підтвердження дії", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                      {
+                          Account account = commandAgrument as Account;
+                          account.Delete();
+                      }
                   },
                  (commandAgrument) => Accounts.Count > 0 && SelectedAccount != null));
             }

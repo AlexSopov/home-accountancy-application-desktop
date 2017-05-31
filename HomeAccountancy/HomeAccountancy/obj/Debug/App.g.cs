@@ -74,6 +74,8 @@ namespace HomeAccountancy {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main() {
+            SplashScreen splashScreen = new SplashScreen("windows/splashscreen.png");
+            splashScreen.Show(true);
             HomeAccountancy.App app = new HomeAccountancy.App();
             app.InitializeComponent();
             app.Run();
