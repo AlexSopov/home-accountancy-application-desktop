@@ -83,6 +83,9 @@
     <Compile Include="ViewModels\RateViewModel.cs" />
     <Compile Include="ViewModels\RegularTransactionViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
     <Compile Include="Views\SurveyView.xaml.cs">
       <DependentUpon>SurveyView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AccountsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +218,9 @@
   </ItemGroup>
   <ItemGroup>
     <SplashScreen Include="Windows\SplashScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\About.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

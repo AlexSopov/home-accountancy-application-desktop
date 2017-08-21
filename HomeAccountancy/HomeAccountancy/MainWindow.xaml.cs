@@ -95,6 +95,10 @@ namespace HomeAccountancy
         {
             new RentWindow().ShowDialog();
         }
+        private void ShowAbout(object sender, RoutedEventArgs e)
+        {
+            new AboutWindow().ShowDialog();
+        }
 
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {

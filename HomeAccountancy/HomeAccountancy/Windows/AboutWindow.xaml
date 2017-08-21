@@ -1,0 +1,23 @@
+﻿<Controls:MetroWindow x:Class="HomeAccountancy.Windows.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:HomeAccountancy.Windows"
+        mc:Ignorable="d"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="LightGray"
+        Icon="../Content/icon.ico"
+        TitleCaps="False"
+        Width="478.782" Height="323" Margin="0" Padding="0"
+        ResizeMode="NoResize"
+        Title="Про програму"
+        Background="#FAFAFA">
+
+    <Grid>
+        <Image Source="../Content/About.png" Width="500" Height="300"/>
+    </Grid>
+
+</Controls:MetroWindow>

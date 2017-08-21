@@ -5,7 +5,6 @@ using System.Windows;
 
 namespace HomeAccountancy.ViewModels
 {
-    // TODO SelectedIncome, SelectedOutgo category property
     class CategoryViewModel : INotifyPropertyChanged
     {
         private Category _SelectedCategory;

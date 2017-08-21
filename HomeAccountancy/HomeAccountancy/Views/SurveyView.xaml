@@ -115,12 +115,12 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються витрати</TextBlock>
                             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedOutgo" 
                                        FontSize="12" Padding="0 2" Text="{Binding ExOuntgoes, StringFormat={}{0:# ###.##;-# ###.##; 0}}" />
-                            <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0"
+                            <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0" Padding="0 2"
                                     Text="{Binding SelectedAccount.Currency}" />
                             <TextBlock Grid.Row="1" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються доходи</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedIncome" 
                                        FontSize="12" Padding="0 2" Text="{Binding ExIncomes, StringFormat={}{0:# ###.##;-# ###.##;0}}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0"
+                            <TextBlock Grid.Row="1" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0" Padding="0 2"
                                     Text="{Binding SelectedAccount.Currency}" />
                         </Grid>
                     </Border>

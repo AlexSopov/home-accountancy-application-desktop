@@ -78,7 +78,7 @@
             <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                 <TextBlock Text="Курс переводу:" VerticalAlignment="Center" Margin="0 0 5 0"/>
                 <Controls:NumericUpDown  HasDecimals="True" Speedup="True" Width="80"
-                                    Minimum="0" Maximum = "100" Interval="0.01" StringFormat="N2" Value="{Binding SelectedRate.RateFromTo}"/>
+                                    Minimum="0.01" Maximum = "100" Interval="0.01" StringFormat="N2" Value="{Binding RateValue}"/>
             </StackPanel>
 
             <Grid Grid.Row="4" Grid.Column="0" Margin="0 5 15 0">

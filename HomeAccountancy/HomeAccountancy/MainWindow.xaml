@@ -27,12 +27,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Зберегти" InputGestureText="Ctrl + S"/>
             </MenuItem>
-            <MenuItem Header="Допомога">
-                <MenuItem.Items>
-                    <MenuItem Header="Про програму" />
-                    <MenuItem Header="Інструкція" />
-                </MenuItem.Items>
-            </MenuItem>
+            <MenuItem Header="Про програму" Click="ShowAbout"/>
             <MenuItem Header="Вихід" Click="Close_Click"/>
         </Menu>
 

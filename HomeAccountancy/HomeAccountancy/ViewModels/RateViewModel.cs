@@ -11,6 +11,7 @@ namespace HomeAccountancy.ViewModels
         private Currency _SelectedCurrency1;
         private Currency _SelectedCurrency2;
         private Rate _SelectedRate;
+        private double _RateValue;
 
         public Currency SelectedCurrency1
         {
@@ -20,6 +21,7 @@ namespace HomeAccountancy.ViewModels
                 _SelectedCurrency1 = value;
                 OnPropertyChanged("SelectedCurrency1");
                 OnPropertyChanged("SelectedRate");
+                OnPropertyChanged("RateValue");
             }
         }
         public Currency SelectedCurrency2
@@ -30,6 +32,7 @@ namespace HomeAccountancy.ViewModels
                 _SelectedCurrency2 = value;
                 OnPropertyChanged("SelectedCurrency2");
                 OnPropertyChanged("SelectedRate");
+                OnPropertyChanged("RateValue");
             }
         }
         public Rate SelectedRate
@@ -51,6 +54,38 @@ namespace HomeAccountancy.ViewModels
             {
                 _SelectedRate = value;
                 OnPropertyChanged("SelectedRate");
+            }
+        }
+        public double RateValue
+        {
+            get
+            {
+                if (SelectedRate != null)
+                    return SelectedRate.RateFromTo;
+
+                return 1;
+            }
+            set
+            {
+                _RateValue = value;
+
+                if (SelectedRate == null)
+                    return;
+
+                SelectedRate.RateFromTo = value;
+
+                foreach (Rate rate in Rate.Entities)
+                {
+                    if (rate.CurrencyFromId == SelectedRate.CurrencyToId && rate.CurrencyToId == SelectedRate.CurrencyFromId)
+                    {
+                        if (value != 0)
+                            rate.RateFromTo = 1 / value;
+                        else
+                            rate.RateFromTo = 1;
+                    }
+                }
+
+                OnPropertyChanged("RateValue");
             }
         }
 
