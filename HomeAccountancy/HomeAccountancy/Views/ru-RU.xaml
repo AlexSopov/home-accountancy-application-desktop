@@ -1,0 +1,125 @@
+﻿<?xml version="1.0"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:col="clr-namespace:System.Collections;assembly=mscorlib" xmlns:converter="clr-namespace:HomeAccountancy.Converters" xmlns:local="clr-namespace:HomeAccountancy" x:Class="HomeAccountancy.SurveyView" mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converter:DateTimeToStringConverter x:Key="DateToStrongConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Background="{StaticResource MainBackgroudColor}" Name="MainContent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Top controls-->
+        <DockPanel Grid.Row="0" Grid.Column="0" Margin="0 0 0 10">
+            <TextBlock Text="Рахунок:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <ComboBox Width="200" DockPanel.Dock="Left" HorizontalAlignment="Left" Name="Accounts" Margin="10 0 0 0" SelectedItem="{Binding SelectedAccount}"/>
+
+        </DockPanel>
+
+        <!--Grid-->
+        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
+            <DataGrid Name="DataContainer" FontSize="12" AutoGenerateColumns="False" ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedTransaction}" GridLinesVisibility="Horizontal" IsReadOnly="True" VirtualizingPanel.CacheLength="1" VirtualizingPanel.CacheLengthUnit="Page">
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+                        <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
+                    </Style>
+                </DataGrid.Style>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Date, Converter={StaticResource DateToStrongConverter}}" Header="Дата" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Path=TransactionAccount.Name}" Header="Рахунок" Width="200"/>
+                    <DataGridTextColumn Binding="{Binding Path=TransactionCategory}" Header="Категорія" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding Path=Sum}" Header="Сума" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding Path=TransactionCurrency}" Header="Валюта" Width="100"/>
+                    <DataGridTextColumn Binding="{Binding Path=Description}" Header="Коментар" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!--Right info-->
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <Border Margin="5 0 0 20" Background="{Binding CurrentRentColor}" Padding="5 10 5 10" BorderThickness="1" BorderBrush="LightGray">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Foreground="White" FontSize="18">Поточний залишок</TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Name="CurrentRest" Foreground="White" FontSize="20" FontWeight="Bold" Text="{Binding CurrentRent, StringFormat={}{0:# ###.##; -# ###.##; 0}}"/>
+                        <TextBlock Grid.Column="1" Foreground="White" FontSize="20" FontWeight="Bold" Margin="5 0 0 0" Text="{Binding SelectedAccount.Currency}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="LightGray">
+                <StackPanel Orientation="Vertical">
+                    <Border Padding="5 10 0 5" Background="{Binding ExpectedRentColor}">
+                        <StackPanel Orientation="Vertical">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="White" FontSize="18" Margin="0 0 5 0">Прогноз залишку</TextBlock>
+                                <Button Grid.Column="1" Click="Refresh_Click" Padding="0" Background="Transparent" Margin="0 0 5 0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False">
+                                    <Image Source="../Content/refresh.png" Width="20" Height="20"/>
+                                </Button>
+                            </Grid>
+                            <TextBlock Foreground="White" FontSize="12" VerticalAlignment="Top">на кінець місяця</TextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="White" FontSize="20" FontWeight="Bold" Text="{Binding ExpectedRent, StringFormat={}{0:# ###.##; -# ###.##; 0}}"/>
+                                <TextBlock Grid.Column="1" Foreground="White" FontSize="20" FontWeight="Bold" Margin="5 0 0 0" Text="{Binding SelectedAccount.Currency}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border Padding="10 5 10 10" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються витрати</TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedOutgo" FontSize="12" Padding="0 2" Text="{Binding ExOuntgoes, StringFormat={}{0:# ###.##;-# ###.##; 0}}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0" Padding="0 2" Text="{Binding SelectedAccount.Currency}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="12" Padding="0 2">Очікуються доходи</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Right" FontWeight="Bold" Name="ExpectedIncome" FontSize="12" Padding="0 2" Text="{Binding ExIncomes, StringFormat={}{0:# ###.##;-# ###.##;0}}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" FontWeight="Bold" FontSize="12" Margin="5 0 0 0" Padding="0 2" Text="{Binding SelectedAccount.Currency}"/>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+        
+        <!--Bottom controls-->
+        <Grid Grid.Row="2" Grid.Column="0" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedTransaction}">Видалити</Button>
+            <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="8 0" Padding="20 8" Command="{Binding ChangeCommand}" CommandParameter="{Binding SelectedTransaction}">Редагувати</Button>
+            <Button Grid.Column="3" Margin="8 0 0 0" Style="{StaticResource AccentedSquareButtonStyle}" Click="Add_Click" Padding="20 8">Додати запис</Button>
+        </Grid>
+        
+    </Grid>
+</UserControl>
